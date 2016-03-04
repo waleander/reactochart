@@ -21,7 +21,7 @@ import {
 import {randomWalk, randomWalkSeries} from './data/util';
 
 import streamGraphData from './data/streamSample.json';
-console.log('stream graph data', streamGraphData);
+//console.log('stream graph data', streamGraphData);
 
 // sample ordinal data
 const ordinalData = ['Always', 'Usually', 'Sometimes', 'Rarely', 'Never'];

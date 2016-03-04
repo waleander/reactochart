@@ -4,6 +4,8 @@ import _ from 'lodash';
 import d3 from 'd3';
 import {accessor} from '../util.js';
 
+const colorScale = d3.scale.category20();
+
 const StreamGraph = React.createClass({
   propTypes: {
     //data: PropTypes.array.isRequired,
@@ -81,13 +83,12 @@ const StreamGraph = React.createClass({
       .y1(d => scale.y(d.y0 + d.y));
 
     return <g>
-      {layers.map(layer => {
+      {layers.map((layer, i) => {
         return <path
           d={area(layer)}
           className="layer"
-          fill={randomGray()}
           style={{
-            fill: randomGray(),
+            fill: colorScale(i),
             stroke: 'transparent'
           }}
         />
