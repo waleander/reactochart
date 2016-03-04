@@ -54,7 +54,7 @@
 	'use strict';
 	
 	__webpack_require__(2);
-	__webpack_require__(317);
+	__webpack_require__(318);
 	
 	// run mocha
 	(function () {
@@ -37985,6 +37985,15 @@
 	    return _interopRequireDefault(_TreeMap).default;
 	  }
 	});
+	
+	var _StreamGraph = __webpack_require__(317);
+	
+	Object.defineProperty(exports, 'StreamGraph', {
+	  enumerable: true,
+	  get: function get() {
+	    return _interopRequireDefault(_StreamGraph).default;
+	  }
+	});
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -38010,9 +38019,9 @@
 	
 	var _lodash2 = _interopRequireDefault(_lodash);
 	
-	var _d = __webpack_require__(162);
+	var _d2 = __webpack_require__(162);
 	
-	var _d2 = _interopRequireDefault(_d);
+	var _d3 = _interopRequireDefault(_d2);
 	
 	var _util = __webpack_require__(207);
 	
@@ -38252,7 +38261,7 @@
 	        ['x', 'y'].forEach(function (k) {
 	            var isOrdinal = axisType[k] === 'ordinal';
 	            [ticks[k], labelValues[k]].forEach(function (values) {
-	                if (values) domains[k].push(isOrdinal ? values : _d2.default.extent(values));
+	                if (values) domains[k].push(isOrdinal ? values : _d3.default.extent(values));
 	            });
 	        });
 	        // use spacing from props if provided, else calculated spacings from children
@@ -38419,7 +38428,7 @@
 	
 	                    var yTickAndPadSpace = (hasYValLabels || hasYAxisLabel ? labelPadding.y : 0) + (showTicks.y ? tickLength.y : 0);
 	
-	                    var maxYValWidth = (hasYValLabels ? Math.ceil(_d2.default.max(labelBoxes.yVal, (0, _util.accessor)('width'))) : 0) + yTickAndPadSpace;
+	                    var maxYValWidth = (hasYValLabels ? Math.ceil(_d3.default.max(labelBoxes.yVal, (0, _util.accessor)('width'))) : 0) + yTickAndPadSpace;
 	                    var yAxisLabelOuterWidth = hasYAxisLabel ? Math.ceil(labelBoxes.yAxis.width) + yTickAndPadSpace : 0;
 	                    //console.log(maxYValWidth, yAxisLabelOuterWidth);
 	
@@ -38427,7 +38436,7 @@
 	
 	                    var xTickAndPadSpace = (hasXValLabels || hasXAxisLabel ? labelPadding.x : 0) + (showTicks.x ? tickLength.x : 0);
 	
-	                    var maxXValHeight = (hasXValLabels ? Math.ceil(_d2.default.max(labelBoxes.xVal, (0, _util.accessor)('height'))) : 0) + xTickAndPadSpace;
+	                    var maxXValHeight = (hasXValLabels ? Math.ceil(_d3.default.max(labelBoxes.xVal, (0, _util.accessor)('height'))) : 0) + xTickAndPadSpace;
 	
 	                    var requiredMargin = {
 	                        top: topMargin,
@@ -39001,7 +39010,7 @@
 	        // extent for number & time scales, coerce dates to numbers
 	        case 'number':
 	        case 'time':
-	            return _d2.default.extent(data, function (d) {
+	            return _d3.default.extent(data, function (d) {
 	                return +(0, _util.accessor)(getter)(d);
 	            });
 	        // all unique values for ordinal scale
@@ -39014,11 +39023,11 @@
 	function initScale(type) {
 	    switch (type) {
 	        case 'number':
-	            return _d2.default.scale.linear();
+	            return _d3.default.scale.linear();
 	        case 'ordinal':
-	            return _d2.default.scale.ordinal();
+	            return _d3.default.scale.ordinal();
 	        case 'time':
-	            return _d2.default.time.scale();
+	            return _d3.default.time.scale();
 	    }
 	}
 	
@@ -66774,6 +66783,146 @@
 
 /***/ },
 /* 317 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(3);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _lodash = __webpack_require__(205);
+	
+	var _lodash2 = _interopRequireDefault(_lodash);
+	
+	var _d = __webpack_require__(162);
+	
+	var _d2 = _interopRequireDefault(_d);
+	
+	var _util = __webpack_require__(207);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var PropTypes = _react2.default.PropTypes;
+	
+	
+	var colorScale = _d2.default.scale.category20();
+	
+	var StreamGraph = _react2.default.createClass({
+	  displayName: 'StreamGraph',
+	
+	  propTypes: {
+	    //data: PropTypes.array.isRequired,
+	    datasets: PropTypes.array.isRequired,
+	    getValue: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+	    getLabel: PropTypes.func,
+	    nodeStyle: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+	    labelStyle: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+	    minLabelWidth: PropTypes.number,
+	    minLabelHeight: PropTypes.number
+	  },
+	  statics: {
+	    implementsInterface: function implementsInterface(name) {
+	      return name === "XYChart";
+	    },
+	    getOptions: function getOptions(props) {
+	      var datasets = props.datasets;
+	
+	      var xAccessor = (0, _util.accessor)(props.getValue.x);
+	      var yAccessor = (0, _util.accessor)(props.getValue.y);
+	      var domains = datasets.map(function (data) {
+	        return {
+	          x: _d2.default.extent(data, xAccessor),
+	          y: _d2.default.extent(data, yAccessor)
+	        };
+	      });
+	
+	      //console.log('xdomain', d3.extent(_.flatten(_.map(domains, 'x'))));
+	
+	      return {
+	        domain: {
+	          x: _d2.default.extent(_lodash2.default.flatten(_lodash2.default.map(domains, 'x'))),
+	          //y: d3.extent(_.flatten(_.map(domains, 'y')))
+	          y: [0, 3]
+	        }
+	      };
+	    }
+	  },
+	
+	  _initStack: function _initStack(props) {
+	    var xAccessor = (0, _util.accessor)(props.getValue.x);
+	    var yAccessor = (0, _util.accessor)(props.getValue.y);
+	    var stackDatasets = props.datasets.map(function (data) {
+	      return data.map(function (d) {
+	        return {
+	          d: d,
+	          x: xAccessor(d),
+	          y: yAccessor(d)
+	        };
+	      });
+	    });
+	
+	    var stack = _d2.default.layout.stack().offset("silhouette");
+	    //.values(function(d) { return d.values; })
+	    //.x(accessor(props.getValue.x))
+	    //.y(accessor(props.getValue.y));
+	
+	    var layers = stack(stackDatasets);
+	    console.log('layers', layers);
+	    return layers;
+	  },
+	  render: function render() {
+	    var scale = this.props.scale;
+	
+	    var layers = this._initStack(this.props);
+	
+	    console.log(scale.x.domain(), scale.y.domain());
+	    console.log(scale.x.range(), scale.y.range());
+	
+	    var area = _d2.default.svg.area().interpolate('cardinal').x(function (d) {
+	      console.log(d, scale.x(d.x), scale.y(d.y0), scale.y(d.y0 + d.y));
+	      return scale.x(d.x);
+	    }).y0(function (d) {
+	      return scale.y(d.y0);
+	    }).y1(function (d) {
+	      return scale.y(d.y0 + d.y);
+	    });
+	
+	    return _react2.default.createElement(
+	      'g',
+	      null,
+	      layers.map(function (layer, i) {
+	        return _react2.default.createElement('path', {
+	          d: area(layer),
+	          className: 'layer',
+	          style: {
+	            fill: colorScale(i),
+	            stroke: 'transparent'
+	          }
+	        });
+	      })
+	    );
+	
+	    return _react2.default.createElement('line', { style: { stroke: 'red' }, x1: 0, y1: 0, x2: 80, y2: 80 });
+	  }
+	});
+	
+	function randomGray() {
+	  var min = arguments.length <= 0 || arguments[0] === undefined ? 0 : arguments[0];
+	  var max = arguments.length <= 1 || arguments[1] === undefined ? 255 : arguments[1];
+	
+	  var rgb = _lodash2.default.random(min, max);
+	  return 'rgb(' + rgb + ', ' + rgb + ', ' + rgb + ')';
+	}
+	
+	exports.default = StreamGraph;
+
+/***/ },
+/* 318 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

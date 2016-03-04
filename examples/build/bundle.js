@@ -80,11 +80,17 @@
 	
 	var _src = __webpack_require__(167);
 	
-	var _util = __webpack_require__(281);
+	var _util = __webpack_require__(282);
+	
+	var _streamSample = __webpack_require__(283);
+	
+	var _streamSample2 = _interopRequireDefault(_streamSample);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+	
+	//console.log('stream graph data', streamGraphData);
 	
 	// sample ordinal data
 	var ordinalData = ['Always', 'Usually', 'Sometimes', 'Rarely', 'Never'];
@@ -828,6 +834,9 @@
 	        this.setState((0, _reactAddonsUpdate2.default)(this.state, { visibleExamples: _defineProperty({}, id, { $set: !isVisible }) }));
 	    },
 	    render: function render() {
+	        var streamDatasets = _.values(_.groupBy(_streamSample2.default, '0'));
+	        console.log(streamDatasets);
+	
 	        return _react2.default.createElement(
 	            'div',
 	            null,
@@ -845,6 +854,24 @@
 	                    _react2.default.createElement(_src.LineChart, {
 	                        data: [['a', 0.5], ['b', 1], ['c', 0.25]],
 	                        getValue: getXYArrayValue
+	                    })
+	                )
+	            ),
+	            _react2.default.createElement(
+	                'div',
+	                null,
+	                _react2.default.createElement(
+	                    _src.XYPlot,
+	                    { axisType: { x: 'number' }, width: 680 },
+	                    _react2.default.createElement(_src.StreamGraph, {
+	                        datasets: streamDatasets,
+	                        data: [['a', 0.5], ['b', 1], ['c', 0.25]],
+	                        getValue: {
+	                            x: function x(d) {
+	                                return +new Date(d[2]);
+	                            },
+	                            y: '1'
+	                        }
 	                    })
 	                )
 	            ),
@@ -21715,6 +21742,15 @@
 	    return _interopRequireDefault(_TreeMap).default;
 	  }
 	});
+	
+	var _StreamGraph = __webpack_require__(281);
+	
+	Object.defineProperty(exports, 'StreamGraph', {
+	  enumerable: true,
+	  get: function get() {
+	    return _interopRequireDefault(_StreamGraph).default;
+	  }
+	});
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -21740,9 +21776,9 @@
 	
 	var _lodash2 = _interopRequireDefault(_lodash);
 	
-	var _d = __webpack_require__(171);
+	var _d2 = __webpack_require__(171);
 	
-	var _d2 = _interopRequireDefault(_d);
+	var _d3 = _interopRequireDefault(_d2);
 	
 	var _util = __webpack_require__(172);
 	
@@ -21982,7 +22018,7 @@
 	        ['x', 'y'].forEach(function (k) {
 	            var isOrdinal = axisType[k] === 'ordinal';
 	            [ticks[k], labelValues[k]].forEach(function (values) {
-	                if (values) domains[k].push(isOrdinal ? values : _d2.default.extent(values));
+	                if (values) domains[k].push(isOrdinal ? values : _d3.default.extent(values));
 	            });
 	        });
 	        // use spacing from props if provided, else calculated spacings from children
@@ -22149,7 +22185,7 @@
 	
 	                    var yTickAndPadSpace = (hasYValLabels || hasYAxisLabel ? labelPadding.y : 0) + (showTicks.y ? tickLength.y : 0);
 	
-	                    var maxYValWidth = (hasYValLabels ? Math.ceil(_d2.default.max(labelBoxes.yVal, (0, _util.accessor)('width'))) : 0) + yTickAndPadSpace;
+	                    var maxYValWidth = (hasYValLabels ? Math.ceil(_d3.default.max(labelBoxes.yVal, (0, _util.accessor)('width'))) : 0) + yTickAndPadSpace;
 	                    var yAxisLabelOuterWidth = hasYAxisLabel ? Math.ceil(labelBoxes.yAxis.width) + yTickAndPadSpace : 0;
 	                    //console.log(maxYValWidth, yAxisLabelOuterWidth);
 	
@@ -22157,7 +22193,7 @@
 	
 	                    var xTickAndPadSpace = (hasXValLabels || hasXAxisLabel ? labelPadding.x : 0) + (showTicks.x ? tickLength.x : 0);
 	
-	                    var maxXValHeight = (hasXValLabels ? Math.ceil(_d2.default.max(labelBoxes.xVal, (0, _util.accessor)('height'))) : 0) + xTickAndPadSpace;
+	                    var maxXValHeight = (hasXValLabels ? Math.ceil(_d3.default.max(labelBoxes.xVal, (0, _util.accessor)('height'))) : 0) + xTickAndPadSpace;
 	
 	                    var requiredMargin = {
 	                        top: topMargin,
@@ -22731,7 +22767,7 @@
 	        // extent for number & time scales, coerce dates to numbers
 	        case 'number':
 	        case 'time':
-	            return _d2.default.extent(data, function (d) {
+	            return _d3.default.extent(data, function (d) {
 	                return +(0, _util.accessor)(getter)(d);
 	            });
 	        // all unique values for ordinal scale
@@ -22744,11 +22780,11 @@
 	function initScale(type) {
 	    switch (type) {
 	        case 'number':
-	            return _d2.default.scale.linear();
+	            return _d3.default.scale.linear();
 	        case 'ordinal':
-	            return _d2.default.scale.ordinal();
+	            return _d3.default.scale.ordinal();
 	        case 'time':
-	            return _d2.default.time.scale();
+	            return _d3.default.time.scale();
 	    }
 	}
 	
@@ -59383,6 +59419,146 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(6);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _lodash = __webpack_require__(169);
+	
+	var _lodash2 = _interopRequireDefault(_lodash);
+	
+	var _d = __webpack_require__(171);
+	
+	var _d2 = _interopRequireDefault(_d);
+	
+	var _util = __webpack_require__(172);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var PropTypes = _react2.default.PropTypes;
+	
+	
+	var colorScale = _d2.default.scale.category20();
+	
+	var StreamGraph = _react2.default.createClass({
+	  displayName: 'StreamGraph',
+	
+	  propTypes: {
+	    //data: PropTypes.array.isRequired,
+	    datasets: PropTypes.array.isRequired,
+	    getValue: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+	    getLabel: PropTypes.func,
+	    nodeStyle: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+	    labelStyle: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+	    minLabelWidth: PropTypes.number,
+	    minLabelHeight: PropTypes.number
+	  },
+	  statics: {
+	    implementsInterface: function implementsInterface(name) {
+	      return name === "XYChart";
+	    },
+	    getOptions: function getOptions(props) {
+	      var datasets = props.datasets;
+	
+	      var xAccessor = (0, _util.accessor)(props.getValue.x);
+	      var yAccessor = (0, _util.accessor)(props.getValue.y);
+	      var domains = datasets.map(function (data) {
+	        return {
+	          x: _d2.default.extent(data, xAccessor),
+	          y: _d2.default.extent(data, yAccessor)
+	        };
+	      });
+	
+	      //console.log('xdomain', d3.extent(_.flatten(_.map(domains, 'x'))));
+	
+	      return {
+	        domain: {
+	          x: _d2.default.extent(_lodash2.default.flatten(_lodash2.default.map(domains, 'x'))),
+	          //y: d3.extent(_.flatten(_.map(domains, 'y')))
+	          y: [0, 3]
+	        }
+	      };
+	    }
+	  },
+	
+	  _initStack: function _initStack(props) {
+	    var xAccessor = (0, _util.accessor)(props.getValue.x);
+	    var yAccessor = (0, _util.accessor)(props.getValue.y);
+	    var stackDatasets = props.datasets.map(function (data) {
+	      return data.map(function (d) {
+	        return {
+	          d: d,
+	          x: xAccessor(d),
+	          y: yAccessor(d)
+	        };
+	      });
+	    });
+	
+	    var stack = _d2.default.layout.stack().offset("silhouette");
+	    //.values(function(d) { return d.values; })
+	    //.x(accessor(props.getValue.x))
+	    //.y(accessor(props.getValue.y));
+	
+	    var layers = stack(stackDatasets);
+	    console.log('layers', layers);
+	    return layers;
+	  },
+	  render: function render() {
+	    var scale = this.props.scale;
+	
+	    var layers = this._initStack(this.props);
+	
+	    console.log(scale.x.domain(), scale.y.domain());
+	    console.log(scale.x.range(), scale.y.range());
+	
+	    var area = _d2.default.svg.area().interpolate('cardinal').x(function (d) {
+	      console.log(d, scale.x(d.x), scale.y(d.y0), scale.y(d.y0 + d.y));
+	      return scale.x(d.x);
+	    }).y0(function (d) {
+	      return scale.y(d.y0);
+	    }).y1(function (d) {
+	      return scale.y(d.y0 + d.y);
+	    });
+	
+	    return _react2.default.createElement(
+	      'g',
+	      null,
+	      layers.map(function (layer, i) {
+	        return _react2.default.createElement('path', {
+	          d: area(layer),
+	          className: 'layer',
+	          style: {
+	            fill: colorScale(i),
+	            stroke: 'transparent'
+	          }
+	        });
+	      })
+	    );
+	
+	    return _react2.default.createElement('line', { style: { stroke: 'red' }, x1: 0, y1: 0, x2: 80, y2: 80 });
+	  }
+	});
+	
+	function randomGray() {
+	  var min = arguments.length <= 0 || arguments[0] === undefined ? 0 : arguments[0];
+	  var max = arguments.length <= 1 || arguments[1] === undefined ? 255 : arguments[1];
+	
+	  var rgb = _lodash2.default.random(min, max);
+	  return 'rgb(' + rgb + ', ' + rgb + ', ' + rgb + ')';
+	}
+	
+	exports.default = StreamGraph;
+
+/***/ },
+/* 282 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 	exports.randomWalk = randomWalk;
@@ -59413,6 +59589,643 @@
 	        return [i, n];
 	    });
 	}
+
+/***/ },
+/* 283 */
+/***/ function(module, exports) {
+
+	module.exports = [
+		[
+			"AR",
+			0.1,
+			"1/08/13"
+		],
+		[
+			"AR",
+			0.15,
+			"1/09/13"
+		],
+		[
+			"AR",
+			0.35,
+			"1/10/13"
+		],
+		[
+			"AR",
+			0.38,
+			"1/11/13"
+		],
+		[
+			"AR",
+			0.22,
+			"1/12/13"
+		],
+		[
+			"AR",
+			0.16,
+			"1/13/13"
+		],
+		[
+			"AR",
+			0.07,
+			"1/14/13"
+		],
+		[
+			"AR",
+			0.02,
+			"1/15/13"
+		],
+		[
+			"AR",
+			0.17,
+			"1/16/13"
+		],
+		[
+			"AR",
+			0.33,
+			"1/17/13"
+		],
+		[
+			"AR",
+			0.4,
+			"1/18/13"
+		],
+		[
+			"AR",
+			0.32,
+			"1/19/13"
+		],
+		[
+			"AR",
+			0.26,
+			"1/20/13"
+		],
+		[
+			"AR",
+			0.35,
+			"1/21/13"
+		],
+		[
+			"AR",
+			0.4,
+			"1/22/13"
+		],
+		[
+			"AR",
+			0.32,
+			"1/23/13"
+		],
+		[
+			"AR",
+			0.26,
+			"1/24/13"
+		],
+		[
+			"AR",
+			0.22,
+			"1/25/13"
+		],
+		[
+			"AR",
+			0.16,
+			"1/26/13"
+		],
+		[
+			"AR",
+			0.22,
+			"1/27/13"
+		],
+		[
+			"AR",
+			0.1,
+			"1/28/13"
+		],
+		[
+			"DJ",
+			0.35,
+			"1/08/13"
+		],
+		[
+			"DJ",
+			0.36,
+			"1/09/13"
+		],
+		[
+			"DJ",
+			0.37,
+			"1/10/13"
+		],
+		[
+			"DJ",
+			0.22,
+			"1/11/13"
+		],
+		[
+			"DJ",
+			0.24,
+			"1/12/13"
+		],
+		[
+			"DJ",
+			0.26,
+			"1/13/13"
+		],
+		[
+			"DJ",
+			0.34,
+			"1/14/13"
+		],
+		[
+			"DJ",
+			0.21,
+			"1/15/13"
+		],
+		[
+			"DJ",
+			0.18,
+			"1/16/13"
+		],
+		[
+			"DJ",
+			0.45,
+			"1/17/13"
+		],
+		[
+			"DJ",
+			0.32,
+			"1/18/13"
+		],
+		[
+			"DJ",
+			0.35,
+			"1/19/13"
+		],
+		[
+			"DJ",
+			0.3,
+			"1/20/13"
+		],
+		[
+			"DJ",
+			0.28,
+			"1/21/13"
+		],
+		[
+			"DJ",
+			0.27,
+			"1/22/13"
+		],
+		[
+			"DJ",
+			0.26,
+			"1/23/13"
+		],
+		[
+			"DJ",
+			0.15,
+			"1/24/13"
+		],
+		[
+			"DJ",
+			0.3,
+			"1/25/13"
+		],
+		[
+			"DJ",
+			0.35,
+			"1/26/13"
+		],
+		[
+			"DJ",
+			0.42,
+			"1/27/13"
+		],
+		[
+			"DJ",
+			0.42,
+			"1/28/13"
+		],
+		[
+			"MS",
+			0.21,
+			"1/08/13"
+		],
+		[
+			"MS",
+			0.25,
+			"1/09/13"
+		],
+		[
+			"MS",
+			0.27,
+			"1/10/13"
+		],
+		[
+			"MS",
+			0.23,
+			"1/11/13"
+		],
+		[
+			"MS",
+			0.24,
+			"1/12/13"
+		],
+		[
+			"MS",
+			0.21,
+			"1/13/13"
+		],
+		[
+			"MS",
+			0.35,
+			"1/14/13"
+		],
+		[
+			"MS",
+			0.39,
+			"1/15/13"
+		],
+		[
+			"MS",
+			0.4,
+			"1/16/13"
+		],
+		[
+			"MS",
+			0.36,
+			"1/17/13"
+		],
+		[
+			"MS",
+			0.33,
+			"1/18/13"
+		],
+		[
+			"MS",
+			0.43,
+			"1/19/13"
+		],
+		[
+			"MS",
+			0.4,
+			"1/20/13"
+		],
+		[
+			"MS",
+			0.34,
+			"1/21/13"
+		],
+		[
+			"MS",
+			0.28,
+			"1/22/13"
+		],
+		[
+			"MS",
+			0.26,
+			"1/23/13"
+		],
+		[
+			"MS",
+			0.37,
+			"1/24/13"
+		],
+		[
+			"MS",
+			0.41,
+			"1/25/13"
+		],
+		[
+			"MS",
+			0.46,
+			"1/26/13"
+		],
+		[
+			"MS",
+			0.47,
+			"1/27/13"
+		],
+		[
+			"MS",
+			0.41,
+			"1/28/13"
+		],
+		[
+			"RC",
+			0.1,
+			"1/08/13"
+		],
+		[
+			"RC",
+			0.15,
+			"1/09/13"
+		],
+		[
+			"RC",
+			0.35,
+			"1/10/13"
+		],
+		[
+			"RC",
+			0.38,
+			"1/11/13"
+		],
+		[
+			"RC",
+			0.22,
+			"1/12/13"
+		],
+		[
+			"RC",
+			0.16,
+			"1/13/13"
+		],
+		[
+			"RC",
+			0.07,
+			"1/14/13"
+		],
+		[
+			"RC",
+			0.02,
+			"1/15/13"
+		],
+		[
+			"RC",
+			0.17,
+			"1/16/13"
+		],
+		[
+			"RC",
+			0.33,
+			"1/17/13"
+		],
+		[
+			"RC",
+			0.4,
+			"1/18/13"
+		],
+		[
+			"RC",
+			0.32,
+			"1/19/13"
+		],
+		[
+			"RC",
+			0.26,
+			"1/20/13"
+		],
+		[
+			"RC",
+			0.35,
+			"1/21/13"
+		],
+		[
+			"RC",
+			0.4,
+			"1/22/13"
+		],
+		[
+			"RC",
+			0.32,
+			"1/23/13"
+		],
+		[
+			"RC",
+			0.26,
+			"1/24/13"
+		],
+		[
+			"RC",
+			0.22,
+			"1/25/13"
+		],
+		[
+			"RC",
+			0.16,
+			"1/26/13"
+		],
+		[
+			"RC",
+			0.22,
+			"1/27/13"
+		],
+		[
+			"RC",
+			0.1,
+			"1/28/13"
+		],
+		[
+			"CG",
+			0.1,
+			"1/08/13"
+		],
+		[
+			"CG",
+			0.15,
+			"1/09/13"
+		],
+		[
+			"CG",
+			0.35,
+			"1/10/13"
+		],
+		[
+			"CG",
+			0.38,
+			"1/11/13"
+		],
+		[
+			"CG",
+			0.22,
+			"1/12/13"
+		],
+		[
+			"CG",
+			0.16,
+			"1/13/13"
+		],
+		[
+			"CG",
+			0.07,
+			"1/14/13"
+		],
+		[
+			"CG",
+			0.02,
+			"1/15/13"
+		],
+		[
+			"CG",
+			0.17,
+			"1/16/13"
+		],
+		[
+			"CG",
+			0.33,
+			"1/17/13"
+		],
+		[
+			"CG",
+			0.4,
+			"1/18/13"
+		],
+		[
+			"CG",
+			0.32,
+			"1/19/13"
+		],
+		[
+			"CG",
+			0.26,
+			"1/20/13"
+		],
+		[
+			"CG",
+			0.35,
+			"1/21/13"
+		],
+		[
+			"CG",
+			0.4,
+			"1/22/13"
+		],
+		[
+			"CG",
+			0.32,
+			"1/23/13"
+		],
+		[
+			"CG",
+			0.26,
+			"1/24/13"
+		],
+		[
+			"CG",
+			0.22,
+			"1/25/13"
+		],
+		[
+			"CG",
+			0.16,
+			"1/26/13"
+		],
+		[
+			"CG",
+			0.22,
+			"1/27/13"
+		],
+		[
+			"CG",
+			0.1,
+			"1/28/13"
+		],
+		[
+			"RI",
+			0.1,
+			"1/08/13"
+		],
+		[
+			"RI",
+			0.15,
+			"1/09/13"
+		],
+		[
+			"RI",
+			0.35,
+			"1/10/13"
+		],
+		[
+			"RI",
+			0.38,
+			"1/11/13"
+		],
+		[
+			"RI",
+			0.22,
+			"1/12/13"
+		],
+		[
+			"RI",
+			0.16,
+			"1/13/13"
+		],
+		[
+			"RI",
+			0.07,
+			"1/14/13"
+		],
+		[
+			"RI",
+			0.02,
+			"1/15/13"
+		],
+		[
+			"RI",
+			0.17,
+			"1/16/13"
+		],
+		[
+			"RI",
+			0.33,
+			"1/17/13"
+		],
+		[
+			"RI",
+			0.4,
+			"1/18/13"
+		],
+		[
+			"RI",
+			0.32,
+			"1/19/13"
+		],
+		[
+			"RI",
+			0.26,
+			"1/20/13"
+		],
+		[
+			"RI",
+			0.35,
+			"1/21/13"
+		],
+		[
+			"RI",
+			0.4,
+			"1/22/13"
+		],
+		[
+			"RI",
+			0.32,
+			"1/23/13"
+		],
+		[
+			"RI",
+			0.26,
+			"1/24/13"
+		],
+		[
+			"RI",
+			0.22,
+			"1/25/13"
+		],
+		[
+			"RI",
+			0.16,
+			"1/26/13"
+		],
+		[
+			"RI",
+			0.22,
+			"1/27/13"
+		],
+		[
+			"RI",
+			0.1,
+			"1/28/13"
+		]
+	];
 
 /***/ }
 /******/ ]);
