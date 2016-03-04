@@ -14,10 +14,14 @@ import {
     MarkerLineChart,
     ScatterPlot,
     Histogram,
-    KernelDensityEstimation
+    KernelDensityEstimation,
+    StreamGraph
 } from '../../src';
 
 import {randomWalk, randomWalkSeries} from './data/util';
+
+import streamGraphData from './data/streamSample.json';
+console.log('stream graph data', streamGraphData);
 
 // sample ordinal data
 const ordinalData = ['Always', 'Usually', 'Sometimes', 'Rarely', 'Never'];
@@ -588,6 +592,9 @@ const App = React.createClass({
     },
 
     render() {
+        const streamDatasets = _.values(_.groupBy(streamGraphData, '0'));
+        console.log(streamDatasets);
+
         return <div>
             <h1>Reactochart Examples</h1>
 
@@ -600,6 +607,18 @@ const App = React.createClass({
                 </XYPlot>
             </div>
 
+            <div>
+                <XYPlot axisType={{x: 'number'}} width={680}>
+                    <StreamGraph
+                      datasets={streamDatasets}
+                      data={[['a', 0.5], ['b', 1], ['c', 0.25]]}
+                      getValue={{
+                        x: d => +(new Date(d[2])),
+                        y: '1'
+                      }}
+                    />
+                </XYPlot>
+            </div>
 
             {/*
             <div>

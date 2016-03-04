@@ -10,3 +10,4 @@ export { default as AreaHeatmap } from './charts/AreaHeatmap';
 
 export { default as PieChart } from './charts/PieChart';
 export { default as TreeMap } from './charts/TreeMap';
+export { default as StreamGraph } from './charts/StreamGraph';
