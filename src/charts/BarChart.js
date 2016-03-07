@@ -139,6 +139,7 @@ const BarChart = React.createClass({
         onMouseEnterBar: PropTypes.func, // A mouse walks into a bar.
         onMouseMoveBar: PropTypes.func,  // He is immediately killed by the bartender,
         onMouseLeaveBar: PropTypes.func, // who can't risk another "C" rating from the health department.
+        onClickBar: PropTypes.func
     },
     getDefaultProps() {
         return {
@@ -192,6 +193,9 @@ const BarChart = React.createClass({
     onMouseLeaveBar(e, d) {
         this.props.onMouseLeaveBar(e, d);
     },
+    onClickBar(e, d) {
+        this.props.onClickBar(e, d);
+    },
 
     render() {
         const renderer = this[`render${getBarChartType(this.props)}Bars`];
@@ -208,8 +212,8 @@ const BarChart = React.createClass({
 
         return <g>
             {data.map((d, i) => {
-                const [onMouseEnter, onMouseMove, onMouseLeave] =
-                    ['onMouseEnterBar', 'onMouseMoveBar', 'onMouseLeaveBar'].map(eventName => {
+                const [onMouseEnter, onMouseMove, onMouseLeave, onClick] =
+                    ['onMouseEnterBar', 'onMouseMoveBar', 'onMouseLeaveBar', 'onClickBar'].map(eventName => {
                         // partially apply this bar's data point as 2nd callback argument
                         const callback = methodIfFuncProp(eventName, this.props, this);
                         return _.isFunction(callback) ? _.partial(callback, _, d) : null;
@@ -230,7 +234,7 @@ const BarChart = React.createClass({
                 const key = `chart-bar-${i}`;
 
                 if(!_.all([x, y, width, height], _.isFinite)) return null;
-                return <rect {...{className, key, x, y, width, height, onMouseEnter, onMouseMove, onMouseLeave}} />
+                return <rect {...{className, key, x, y, width, height, onMouseEnter, onMouseMove, onMouseLeave, onClick}} />
             })}
         </g>;
     },
