@@ -246,8 +246,8 @@ const BarChart = React.createClass({
         return orientation === 'vertical' ?
             <g>
                 {this.props.data.map((d, i) => {
-                    const [onMouseEnter, onMouseMove, onMouseLeave] =
-                        ['onMouseEnterBar', 'onMouseMoveBar', 'onMouseLeaveBar'].map(eventName => {
+                    const [onMouseEnter, onMouseMove, onMouseLeave, onClick] =
+                        ['onMouseEnterBar', 'onMouseMoveBar', 'onMouseLeaveBar','onClickBar'].map(eventName => {
                             // partially apply this bar's data point as 2nd callback argument
                             const callback = methodIfFuncProp(eventName, this.props, this);
                             return _.isFunction(callback) ? _.partial(callback, _, d) : null;
@@ -269,14 +269,14 @@ const BarChart = React.createClass({
                         y={barY}
                         width={barThickness}
                         height={barLength}
-                        {...{className, key, onMouseEnter, onMouseMove, onMouseLeave}}
+                        {...{className, key, onMouseEnter, onMouseMove, onMouseLeave, onClick}}
                         />
                 })}
             </g> :
             <g>
                 {this.props.data.map((d, i) => {
-                    const [onMouseEnter, onMouseMove, onMouseLeave] =
-                        ['onMouseEnterBar', 'onMouseMoveBar', 'onMouseLeaveBar'].map(eventName => {
+                    const [onMouseEnter, onMouseMove, onMouseLeave, onClick] =
+                        ['onMouseEnterBar', 'onMouseMoveBar', 'onMouseLeaveBar', 'onClickBar'].map(eventName => {
                             // partially apply this bar's data point as 2nd callback argument
                             const callback = methodIfFuncProp(eventName, this.props, this);
                             return _.isFunction(callback) ? _.partial(callback, _, d) : null;
@@ -298,7 +298,7 @@ const BarChart = React.createClass({
                         y={barY}
                         width={barLength}
                         height={barThickness}
-                        {...{className, key, onMouseEnter, onMouseMove, onMouseLeave}}
+                        {...{className, key, onMouseEnter, onMouseMove, onMouseLeave, onClick}}
                     />
                 })}
             </g>
