@@ -13,14 +13,14 @@ import {makeAccessor} from './utils/Data';
 
 export default class RangeRect extends React.Component {
   static propTypes = {
-    scale: React.PropTypes.shape({x: React.PropTypes.func.isRequired, y: React.PropTypes.func.isRequired}),
-    datum: React.PropTypes.any,
+    scale: PropTypes.shape({x: PropTypes.func.isRequired, y: PropTypes.func.isRequired}),
+    datum: PropTypes.any,
     getX: CustomPropTypes.getter,
     getXEnd: CustomPropTypes.getter,
     getY: CustomPropTypes.getter,
     getYEnd: CustomPropTypes.getter,
-    className: React.PropTypes.string,
-    style: React.PropTypes.object
+    className: PropTypes.string,
+    style: PropTypes.object
   };
   static defaultProps = {
     className: '',

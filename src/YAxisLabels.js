@@ -1,5 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
+import PropTypes from 'prop-types';
 
 import MeasuredValueLabel from './MeasuredValueLabel';
 import {getScaleTicks, inferScaleType, getTickDomain} from './utils/Scale';
@@ -47,7 +48,7 @@ function resolveYLabelsForValues(scale, values, formats, style, force = true) {
 
 class YAxisValueLabels extends React.Component {
   static propTypes = {
-    scale: React.PropTypes.object,
+    scale: PropTypes.object,
     // placement: undefined,
     // format: undefined,
     // formats: undefined,

@@ -2,6 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import d3 from 'd3';
 import shallowEqual from './utils/shallowEqual';
+import PropTypes from 'prop-types';
 
 import {makeAccessor} from './utils/Data';
 import {scaleEqual} from './utils/Scale';
@@ -11,12 +12,12 @@ import xyPropsEqual from './utils/xyPropsEqual';
 export default class LineChart extends React.Component {
   static propTypes = {
     // the array of data objects
-    data: React.PropTypes.array.isRequired,
+    data: PropTypes.array.isRequired,
     // accessor for X & Y coordinates
-    getX: React.PropTypes.any,
-    getY: React.PropTypes.any,
+    getX: PropTypes.any,
+    getY: PropTypes.any,
     // props from XYPlot
-    scale: React.PropTypes.object
+    scale: PropTypes.object
   };
 
   componentWillMount() {

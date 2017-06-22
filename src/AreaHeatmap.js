@@ -1,13 +1,14 @@
 import React from 'react';
 import _ from 'lodash';
 import d3 from 'd3';
+import PropTypes from 'prop-types';
 
 import {methodIfFuncProp} from './util.js';
 import {makeAccessor} from './utils/Data';
 
 export default class AreaHeatmap extends React.Component {
   static propTypes = {
-    unitsPerPixel: React.PropTypes.number
+    unitsPerPixel: PropTypes.number
   };
 
   static getDomain(props) {

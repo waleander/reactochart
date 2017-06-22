@@ -1,5 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
+import PropTypes from 'prop-types';
 
 import MeasuredValueLabel from './MeasuredValueLabel';
 import {getScaleTicks, inferScaleType, getTickDomain} from './utils/Scale';
@@ -59,7 +60,7 @@ function resolveXLabelsForValues(scale, values, formats, style, force = true) {
 
 class XAxisValueLabels extends React.Component {
   static propTypes = {
-    scale: React.PropTypes.object
+    scale: PropTypes.object
   };
   static defaultProps = {
     height: 250,

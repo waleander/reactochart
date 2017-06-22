@@ -1,17 +1,18 @@
 import React from 'react';
 import _ from 'lodash';
 import d3 from 'd3';
+import PropTypes from 'prop-types';
 
 import AreaBarChart from './AreaBarChart';
 
 export default class Histogram extends React.Component {
   static propTypes = {
     // the array of data objects
-    data: React.PropTypes.array.isRequired,
+    data: PropTypes.array.isRequired,
     // accessor for X & Y coordinates
-    getValue: React.PropTypes.object,
-    axisType: React.PropTypes.object,
-    scale: React.PropTypes.object
+    getValue: PropTypes.object,
+    axisType: PropTypes.object,
+    scale: PropTypes.object
   };
 
   state = {

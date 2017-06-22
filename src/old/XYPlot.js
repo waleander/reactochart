@@ -1,5 +1,5 @@
 import React from 'react';
-//const {PropTypes} = React;
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 import d3 from 'd3';
 import {accessor} from '../util.js';
@@ -9,8 +9,7 @@ import ReactDOMServer from 'react-dom/server';
 import resolveObjectProps from '../utils/resolveObjectProps';
 import resolveXYScales from '../utils/resolveXYScales';
 
-let PropTypes = React.PropTypes;
-PropTypes = _.assign({}, PropTypes, {
+let NewPropTypes = _.assign({}, PropTypes, {
     // all props that can apply to both axes take the form {x: val, y: val}
     xyObjectOf: (type) => PropTypes.oneOfType([type, PropTypes.shape({x: type, y: type})]),
     axisType: PropTypes.oneOf(['number', 'time', 'ordinal']),
@@ -30,75 +29,75 @@ PropTypes = _.assign({}, PropTypes, {
 const XYPlot = React.createClass({
     propTypes: {
         // (outer) width and height of the chart
-        width: PropTypes.number.isRequired,
-        height: PropTypes.number.isRequired,
+        width: NewPropTypes.number.isRequired,
+        height: NewPropTypes.number.isRequired,
 
         // chart margins (space around edges where axis labels live)
-        margin: PropTypes.fourDirections,
+        margin: NewPropTypes.fourDirections,
         // internal chart padding (space between scale ends and edge of inner chart background)
-        padding: PropTypes.fourDirections,
+        padding: NewPropTypes.fourDirections,
         // the max extra spacing required by the plot elements, if they were on the edge of the chart
         // eg. if a 10px radius dot is plotted at the end of one axis,
         // it needs 10px of spacing so it doesn't hang over the edge of the chart
         // spacing is the max possible necessary padding, and will == padding if plot elements are on scale extrema
-        spacing: PropTypes.fourDirections,
+        spacing: NewPropTypes.fourDirections,
 
         // axis types - number, time or ordinal
-        scaleType: PropTypes.xyObjectOf(PropTypes.scaleType),
+        scaleType: NewPropTypes.xyObjectOf(NewPropTypes.scaleType),
         // scale domains may be provided, otherwise will be inferred from data
-        domain: PropTypes.xyObjectOf(PropTypes.dataArray),
+        domain: NewPropTypes.xyObjectOf(NewPropTypes.dataArray),
         // whether or not to extend the scales to end on nice values (see docs for d3 scale.linear.nice())
-        nice: PropTypes.xyObjectOf(PropTypes.bool),
+        nice: NewPropTypes.xyObjectOf(NewPropTypes.bool),
         // whether or not to invert the axis (ie. put largest numbers on bottom for Y axis, or on left for X)
-        invertAxis: PropTypes.xyObjectOf(PropTypes.bool),
+        invertAxis: NewPropTypes.xyObjectOf(NewPropTypes.bool),
         // placement of the axis labels/ticks on the chart
-        axisPosition: PropTypes.shape({
-            x: PropTypes.oneOf(['top', 'bottom']),
-            y: PropTypes.oneOf(['left', 'right'])
+        axisPosition: NewPropTypes.shape({
+            x: NewPropTypes.oneOf(['top', 'bottom']),
+            y: NewPropTypes.oneOf(['left', 'right'])
         }),
 
         // approximate # of ticks to include on each axis - 10 is default
         // (actual # may be slightly different, to get nicest intervals)
-        tickCount: PropTypes.xyObjectOf(PropTypes.number),
+        tickCount: NewPropTypes.xyObjectOf(NewPropTypes.number),
         // or alternatively, you can pass an array of the exact tick values to use on each axis
-        ticks: PropTypes.xyObjectOf(PropTypes.dataArray),
+        ticks: NewPropTypes.xyObjectOf(NewPropTypes.dataArray),
         // size of axis ticks
-        tickLength: PropTypes.xyObjectOf(PropTypes.number),
+        tickLength: NewPropTypes.xyObjectOf(NewPropTypes.number),
 
         // axis value labels will be created for each tick, unless you specify a different list of values to label
-        labelValues: PropTypes.xyObjectOf(PropTypes.dataArray),
+        labelValues: NewPropTypes.xyObjectOf(NewPropTypes.dataArray),
         // format to use for the axis value labels. can be a function or a string.
         // if function, called on each label.
         // if string, interpreted as momentjs formats for time axes, or numeraljs formats for number axes
-        labelFormat: PropTypes.xyObjectOf(PropTypes.stringFormatter),
+        labelFormat: NewPropTypes.xyObjectOf(NewPropTypes.stringFormatter),
         // padding between axis value labels and the axis/ticks
-        labelPadding: PropTypes.xyObjectOf(PropTypes.number),
+        labelPadding: NewPropTypes.xyObjectOf(NewPropTypes.number),
         // label to show for null/undefined values
-        emptyLabel: PropTypes.string,
+        emptyLabel: NewPropTypes.string,
 
         // should we draw axis value labels
-        showLabels: PropTypes.xyObjectOf(PropTypes.bool),
+        showLabels: NewPropTypes.xyObjectOf(NewPropTypes.bool),
         // should we draw the grid lines in the main chart space
-        showGrid: PropTypes.xyObjectOf(PropTypes.bool),
+        showGrid: NewPropTypes.xyObjectOf(NewPropTypes.bool),
         // should we draw the little tick lines along the axis
-        showTicks: PropTypes.xyObjectOf(PropTypes.bool),
+        showTicks: NewPropTypes.xyObjectOf(NewPropTypes.bool),
         // should we draw a line showing where zero is
-        showZero: PropTypes.xyObjectOf(PropTypes.bool),
+        showZero: NewPropTypes.xyObjectOf(NewPropTypes.bool),
 
         // label for entire axis, not value labels
-        axisLabel: PropTypes.xyObjectOf(PropTypes.string),
-        axisLabelAlign: PropTypes.xyObjectOf(PropTypes.shape({
-            horizontal: PropTypes.oneOf(['left', 'center', 'right']),
-            vertical: PropTypes.oneOf(['top', 'bottom'])
+        axisLabel: NewPropTypes.xyObjectOf(NewPropTypes.string),
+        axisLabelAlign: NewPropTypes.xyObjectOf(NewPropTypes.shape({
+            horizontal: NewPropTypes.oneOf(['left', 'center', 'right']),
+            vertical: NewPropTypes.oneOf(['top', 'bottom'])
         })),
-        axisLabelPadding: PropTypes.xyObjectOf(PropTypes.number),
+        axisLabelPadding: NewPropTypes.xyObjectOf(NewPropTypes.number),
 
         // todo more interaction
-        onMouseMove: PropTypes.func,
-        onMouseEnter: PropTypes.func,
-        onMouseLeave: PropTypes.func,
-        onMouseDown: PropTypes.func,
-        onMouseUp: PropTypes.func,
+        onMouseMove: NewPropTypes.func,
+        onMouseEnter: NewPropTypes.func,
+        onMouseLeave: NewPropTypes.func,
+        onMouseDown: NewPropTypes.func,
+        onMouseUp: NewPropTypes.func,
 
         // todo: minMargin - margin will be at least X, or more if necessary
         // todo: extraMargin - margin to add to calculated necessary margin
@@ -106,9 +105,9 @@ const XYPlot = React.createClass({
         // todo: minSpacing, extraSpacing ?
 
         // Label Handling
-        onMouseEnterLabel: PropTypes.func,
-        onMouseMoveLabel: PropTypes.func,
-        onMouseLeaveLabel: PropTypes.func
+        onMouseEnterLabel: NewPropTypes.func,
+        onMouseMoveLabel: NewPropTypes.func,
+        onMouseLeaveLabel: NewPropTypes.func
     },
     getDefaultProps() {
         return {
@@ -556,10 +555,10 @@ const XYPlot = React.createClass({
 
 const XGrid = React.createClass({
     propTypes: {
-        ticks: PropTypes.array,
-        scale: PropTypes.array,
-        chartWidth: PropTypes.number,
-        chartHeight: PropTypes.number,
+        ticks: NewPropTypes.array,
+        scale: NewPropTypes.array,
+        chartWidth: NewPropTypes.number,
+        chartHeight: NewPropTypes.number,
     },
     render() {
         const {ticks, scale, chartWidth, chartHeight} = this.props;
@@ -582,20 +581,20 @@ const GridLine = React.createClass({
 
 const XAxisLabel = React.createClass({
     propTypes: {
-        label: PropTypes.string,
-        //letter: PropTypes.string,
-        margin: PropTypes.object,
-        scaleWidth: PropTypes.number,
-        scaleHeight: PropTypes.number,
-        alignment: PropTypes.shape({
-            horizontal: PropTypes.oneOf(['left', 'center', 'right']),
-            vertical: PropTypes.oneOf(['top', 'bottom'])
+        label: NewPropTypes.string,
+        //letter: NewPropTypes.string,
+        margin: NewPropTypes.object,
+        scaleWidth: NewPropTypes.number,
+        scaleHeight: NewPropTypes.number,
+        alignment: NewPropTypes.shape({
+            horizontal: NewPropTypes.oneOf(['left', 'center', 'right']),
+            vertical: NewPropTypes.oneOf(['top', 'bottom'])
         }),
-        axisLabelPadding: PropTypes.number,
-        valueLabelPadding: PropTypes.number,
-        tickLength: PropTypes.number,
+        axisLabelPadding: NewPropTypes.number,
+        valueLabelPadding: NewPropTypes.number,
+        tickLength: NewPropTypes.number,
         // bounding box of the label
-        labelBox: PropTypes.object
+        labelBox: NewPropTypes.object
     },
     getDefaultProps() {
         return {
@@ -630,21 +629,21 @@ const XAxisLabel = React.createClass({
 
 const YAxisLabel = React.createClass({
     propTypes: {
-        label: PropTypes.string,
-        //letter: PropTypes.string,
-        margin: PropTypes.object,
-        scaleWidth: PropTypes.number,
-        scaleHeight: PropTypes.number,
-        alignment: PropTypes.shape({
-            horizontal: PropTypes.oneOf(['left', 'center', 'right']),
-            vertical: PropTypes.oneOf(['top', 'bottom'])
+        label: NewPropTypes.string,
+        //letter: NewPropTypes.string,
+        margin: NewPropTypes.object,
+        scaleWidth: NewPropTypes.number,
+        scaleHeight: NewPropTypes.number,
+        alignment: NewPropTypes.shape({
+            horizontal: NewPropTypes.oneOf(['left', 'center', 'right']),
+            vertical: NewPropTypes.oneOf(['top', 'bottom'])
         }),
-        axisLabelPadding: PropTypes.number,
-        valueLabelPadding: PropTypes.number,
-        tickLength: PropTypes.number,
-        showTicks: PropTypes.bool,
+        axisLabelPadding: NewPropTypes.number,
+        valueLabelPadding: NewPropTypes.number,
+        tickLength: NewPropTypes.number,
+        showTicks: NewPropTypes.bool,
         // bounding box of the label
-        labelBox: PropTypes.object
+        labelBox: NewPropTypes.object
     },
     getDefaultProps() {
         return {
@@ -680,26 +679,26 @@ const YAxisLabel = React.createClass({
 
 const ChartAxis = React.createClass({
     propTypes: {
-        scale: PropTypes.func,
-        type: PropTypes.string,
-        orientation: PropTypes.string,
-        axisTransform: PropTypes.string,
-        ticks: PropTypes.array,
-        labels: PropTypes.array,
-        tickCount: PropTypes.number,
-        labelFormat: PropTypes.stringFormatter,
-        emptyLabel: PropTypes.string,
-        letter: PropTypes.string,
+        scale: NewPropTypes.func,
+        type: NewPropTypes.string,
+        orientation: NewPropTypes.string,
+        axisTransform: NewPropTypes.string,
+        ticks: NewPropTypes.array,
+        labels: NewPropTypes.array,
+        tickCount: NewPropTypes.number,
+        labelFormat: NewPropTypes.stringFormatter,
+        emptyLabel: NewPropTypes.string,
+        letter: NewPropTypes.string,
 
-        scaleWidth: PropTypes.number,
-        scaleHeight: PropTypes.number,
-        padding: PropTypes.object,
-        labelPadding: PropTypes.number,
-        tickLength: PropTypes.number,
-        showLabels: PropTypes.bool,
-        showTicks: PropTypes.bool,
-        showGrid: PropTypes.bool,
-        showZero: PropTypes.bool
+        scaleWidth: NewPropTypes.number,
+        scaleHeight: NewPropTypes.number,
+        padding: NewPropTypes.object,
+        labelPadding: NewPropTypes.number,
+        tickLength: NewPropTypes.number,
+        showLabels: NewPropTypes.bool,
+        showTicks: NewPropTypes.bool,
+        showGrid: NewPropTypes.bool,
+        showZero: NewPropTypes.bool
     },
     getDefaultProps() {
         return {

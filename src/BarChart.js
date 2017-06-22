@@ -1,6 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import invariant from 'invariant';
+import PropTypes from 'prop-types';
 
 import RangeBarChart from './RangeBarChart';
 import * as CustomPropTypes from './utils/CustomPropTypes';
@@ -31,15 +32,15 @@ function makeRangeBarChartProps(barChartProps) {
 
 export default class BarChart extends React.Component {
   static propTypes = {
-    scale: CustomPropTypes.xyObjectOf(React.PropTypes.func.isRequired),
-    data: React.PropTypes.array,
+    scale: CustomPropTypes.xyObjectOf(PropTypes.func.isRequired),
+    data: PropTypes.array,
     getX: CustomPropTypes.getter,
     getY: CustomPropTypes.getter,
-    horizontal: React.PropTypes.bool,
+    horizontal: PropTypes.bool,
 
-    barThickness: React.PropTypes.number,
-    barClassName: React.PropTypes.string,
-    barStyle: React.PropTypes.object
+    barThickness: PropTypes.number,
+    barClassName: PropTypes.string,
+    barStyle: PropTypes.object
   };
   static defaultProps = {
     data: [],
