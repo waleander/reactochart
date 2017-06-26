@@ -1,7 +1,7 @@
 import React from 'react';
 import invariant from 'invariant';
 import isUndefined from 'lodash/isUndefined';
-
+import PropTypes from 'prop-types';
 import * as CustomPropTypes from './utils/CustomPropTypes';
 import {hasOneOfTwo} from './util';
 import {hasXYScales} from './utils/Scale';
