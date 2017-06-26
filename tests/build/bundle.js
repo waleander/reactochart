@@ -57863,6 +57863,10 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _propTypes = __webpack_require__(218);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
 	var _lodash = __webpack_require__(3);
 	
 	var _lodash2 = _interopRequireDefault(_lodash);
@@ -57871,11 +57875,11 @@
 	
 	var _d3 = _interopRequireDefault(_d2);
 	
-	var _util = __webpack_require__(218);
+	var _util = __webpack_require__(226);
 	
 	var _Data = __webpack_require__(205);
 	
-	var _CustomPropTypes = __webpack_require__(219);
+	var _CustomPropTypes = __webpack_require__(227);
 	
 	var CustomPropTypes = _interopRequireWildcard(_CustomPropTypes);
 	
@@ -57888,9 +57892,6 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var PropTypes = _react2.default.PropTypes;
-	
 	
 	var DEFAULT_PROPS = {
 	  getValue: null,
@@ -58037,38 +58038,38 @@
 	
 	PieChart.propTypes = {
 	  // array of data to plot with pie chart
-	  data: PropTypes.array.isRequired,
+	  data: _propTypes2.default.array.isRequired,
 	  // (optional) accessor for getting the values plotted on the pie chart
 	  // if not provided, just uses the value itself at given index
 	  getValue: CustomPropTypes.getter,
 	  // (optional) total expected sum of all the pie slice values
 	  // if provided && slices don't add up to total, an "empty" slice will be rendered for the rest
 	  // if not provided, will be the sum of all values (ie. all values will always add up to 100%)
-	  total: PropTypes.number,
+	  total: _propTypes2.default.number,
 	  // (optional) height and width of the SVG
 	  // if only one is passed, same # is used for both (ie. width=100 means height=100 also)
 	  // if neither is passed, but radius is, radius+margins is used
 	  // if neither is passed, and radius isn't either, DEFAULTS.size is used
-	  width: PropTypes.number,
-	  height: PropTypes.number,
+	  width: _propTypes2.default.number,
+	  height: _propTypes2.default.number,
 	  // (optional) main radius of the pie chart, inferred from margin/width/height if not provided
-	  radius: PropTypes.number,
+	  radius: _propTypes2.default.number,
 	  // (optional) margins (between svg edges and pie circle), inferred from radius/width/height if not provided
 	  // can either be a single number (to make all margins equal), or {top, bottom, left, right} object
-	  margin: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
+	  margin: _propTypes2.default.oneOfType([_propTypes2.default.object, _propTypes2.default.number]),
 	  // (optional) radius of the "donut hole" circle drawn on top of the pie chart to turn it into a donut chart
-	  holeRadius: PropTypes.number,
+	  holeRadius: _propTypes2.default.number,
 	  // (optional) label text to display in the middle of the pie/donut
-	  centerLabel: PropTypes.string,
+	  centerLabel: _propTypes2.default.string,
 	
-	  markerLineValue: PropTypes.number,
-	  markerLineClass: PropTypes.string,
-	  markerLineOverhangInner: PropTypes.number,
-	  markerLineOverhangOuter: PropTypes.number,
+	  markerLineValue: _propTypes2.default.number,
+	  markerLineClass: _propTypes2.default.string,
+	  markerLineOverhangInner: _propTypes2.default.number,
+	  markerLineOverhangOuter: _propTypes2.default.number,
 	
-	  onMouseEnterLine: PropTypes.func,
-	  onMouseMoveLine: PropTypes.func,
-	  onMouseLeaveLine: PropTypes.func
+	  onMouseEnterLine: _propTypes2.default.func,
+	  onMouseMoveLine: _propTypes2.default.func,
+	  onMouseLeaveLine: _propTypes2.default.func
 	};
 	PieChart.defaultProps = DEFAULT_PROPS;
 	
@@ -58131,74 +58132,6 @@
 /* 218 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.methodIfFuncProp = methodIfFuncProp;
-	exports.hasOneOfTwo = hasOneOfTwo;
-	
-	var _lodash = __webpack_require__(3);
-	
-	var _lodash2 = _interopRequireDefault(_lodash);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	// convenience function for event callbacks... we often want to say
-	// "if this.props.onThing is a function, call this.onThing(e) (which will do stuff, then call this.props.onThing)"
-	function methodIfFuncProp(propName, props, context) {
-	    return _lodash2.default.isFunction(props[propName]) && _lodash2.default.isFunction(context[propName]) ? context[propName] : null;
-	}
-	
-	function hasOneOfTwo(a, b) {
-	    return _lodash2.default.some([a, b], _lodash2.default.isUndefined) && _lodash2.default.some([a, b], function (v) {
-	        return !_lodash2.default.isUndefined(v);
-	    });
-	}
-
-/***/ }),
-/* 219 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.scaleType = exports.getter = exports.fourDirectionsOf = exports.xyObjectOf = undefined;
-	
-	var _react = __webpack_require__(5);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _propTypes = __webpack_require__(220);
-	
-	var _propTypes2 = _interopRequireDefault(_propTypes);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var xyObjectOf = exports.xyObjectOf = function xyObjectOf(type) {
-	  return _propTypes2.default.shape({ x: type, y: type });
-	};
-	
-	var fourDirectionsOf = exports.fourDirectionsOf = function fourDirectionsOf(type) {
-	  return _propTypes2.default.shape({
-	    top: type,
-	    bottom: type,
-	    left: type,
-	    right: type
-	  });
-	};
-	
-	var getter = exports.getter = _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number, _propTypes2.default.array, _propTypes2.default.func]);
-	
-	var scaleType = exports.scaleType = _propTypes2.default.oneOf(['linear', 'time', 'ordinal', 'log', 'pow']);
-
-/***/ }),
-/* 220 */
-/***/ (function(module, exports, __webpack_require__) {
-
 	/* WEBPACK VAR INJECTION */(function(process) {/**
 	 * Copyright 2013-present, Facebook, Inc.
 	 * All rights reserved.
@@ -58223,17 +58156,17 @@
 	  // By explicitly using `prop-types` you are opting into new development behavior.
 	  // http://fb.me/prop-types-in-prod
 	  var throwOnDirectAccess = true;
-	  module.exports = __webpack_require__(221)(isValidElement, throwOnDirectAccess);
+	  module.exports = __webpack_require__(219)(isValidElement, throwOnDirectAccess);
 	} else {
 	  // By explicitly using `prop-types` you are opting into new production behavior.
 	  // http://fb.me/prop-types-in-prod
-	  module.exports = __webpack_require__(227)();
+	  module.exports = __webpack_require__(225)();
 	}
 	
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
 
 /***/ }),
-/* 221 */
+/* 219 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -58247,12 +58180,12 @@
 	
 	'use strict';
 	
-	var emptyFunction = __webpack_require__(222);
-	var invariant = __webpack_require__(223);
-	var warning = __webpack_require__(224);
+	var emptyFunction = __webpack_require__(220);
+	var invariant = __webpack_require__(221);
+	var warning = __webpack_require__(222);
 	
-	var ReactPropTypesSecret = __webpack_require__(225);
-	var checkPropTypes = __webpack_require__(226);
+	var ReactPropTypesSecret = __webpack_require__(223);
+	var checkPropTypes = __webpack_require__(224);
 	
 	module.exports = function(isValidElement, throwOnDirectAccess) {
 	  /* global Symbol */
@@ -58752,7 +58685,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
 
 /***/ }),
-/* 222 */
+/* 220 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -58795,7 +58728,7 @@
 	module.exports = emptyFunction;
 
 /***/ }),
-/* 223 */
+/* 221 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -58856,7 +58789,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
 
 /***/ }),
-/* 224 */
+/* 222 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -58871,7 +58804,7 @@
 	
 	'use strict';
 	
-	var emptyFunction = __webpack_require__(222);
+	var emptyFunction = __webpack_require__(220);
 	
 	/**
 	 * Similar to invariant but only logs a warning if the condition is not met.
@@ -58928,7 +58861,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
 
 /***/ }),
-/* 225 */
+/* 223 */
 /***/ (function(module, exports) {
 
 	/**
@@ -58948,7 +58881,7 @@
 
 
 /***/ }),
-/* 226 */
+/* 224 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -58963,9 +58896,9 @@
 	'use strict';
 	
 	if (process.env.NODE_ENV !== 'production') {
-	  var invariant = __webpack_require__(223);
-	  var warning = __webpack_require__(224);
-	  var ReactPropTypesSecret = __webpack_require__(225);
+	  var invariant = __webpack_require__(221);
+	  var warning = __webpack_require__(222);
+	  var ReactPropTypesSecret = __webpack_require__(223);
 	  var loggedTypeFailures = {};
 	}
 	
@@ -59016,7 +58949,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
 
 /***/ }),
-/* 227 */
+/* 225 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
@@ -59030,9 +58963,9 @@
 	
 	'use strict';
 	
-	var emptyFunction = __webpack_require__(222);
-	var invariant = __webpack_require__(223);
-	var ReactPropTypesSecret = __webpack_require__(225);
+	var emptyFunction = __webpack_require__(220);
+	var invariant = __webpack_require__(221);
+	var ReactPropTypesSecret = __webpack_require__(223);
 	
 	module.exports = function() {
 	  function shim(props, propName, componentName, location, propFullName, secret) {
@@ -59081,6 +59014,74 @@
 
 
 /***/ }),
+/* 226 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.methodIfFuncProp = methodIfFuncProp;
+	exports.hasOneOfTwo = hasOneOfTwo;
+	
+	var _lodash = __webpack_require__(3);
+	
+	var _lodash2 = _interopRequireDefault(_lodash);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	// convenience function for event callbacks... we often want to say
+	// "if this.props.onThing is a function, call this.onThing(e) (which will do stuff, then call this.props.onThing)"
+	function methodIfFuncProp(propName, props, context) {
+	    return _lodash2.default.isFunction(props[propName]) && _lodash2.default.isFunction(context[propName]) ? context[propName] : null;
+	}
+	
+	function hasOneOfTwo(a, b) {
+	    return _lodash2.default.some([a, b], _lodash2.default.isUndefined) && _lodash2.default.some([a, b], function (v) {
+	        return !_lodash2.default.isUndefined(v);
+	    });
+	}
+
+/***/ }),
+/* 227 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.scaleType = exports.getter = exports.fourDirectionsOf = exports.xyObjectOf = undefined;
+	
+	var _react = __webpack_require__(5);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(218);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var xyObjectOf = exports.xyObjectOf = function xyObjectOf(type) {
+	  return _propTypes2.default.shape({ x: type, y: type });
+	};
+	
+	var fourDirectionsOf = exports.fourDirectionsOf = function fourDirectionsOf(type) {
+	  return _propTypes2.default.shape({
+	    top: type,
+	    bottom: type,
+	    left: type,
+	    right: type
+	  });
+	};
+	
+	var getter = exports.getter = _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number, _propTypes2.default.array, _propTypes2.default.func]);
+	
+	var scaleType = exports.scaleType = _propTypes2.default.oneOf(['linear', 'time', 'ordinal', 'log', 'pow']);
+
+/***/ }),
 /* 228 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -59098,6 +59099,10 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _propTypes = __webpack_require__(218);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
 	var _lodash = __webpack_require__(3);
 	
 	var _lodash2 = _interopRequireDefault(_lodash);
@@ -59108,7 +59113,7 @@
 	
 	var _Data = __webpack_require__(205);
 	
-	var _CustomPropTypes = __webpack_require__(219);
+	var _CustomPropTypes = __webpack_require__(227);
 	
 	var CustomPropTypes = _interopRequireWildcard(_CustomPropTypes);
 	
@@ -59121,8 +59126,6 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var PropTypes = _react2.default.PropTypes;
 	
 	var TreeMapNode = function (_React$Component) {
 	  _inherits(TreeMapNode, _React$Component);
@@ -59181,23 +59184,23 @@
 	}(_react2.default.Component);
 	
 	TreeMapNode.propTypes = {
-	  node: PropTypes.shape({
-	    parent: PropTypes.object,
-	    children: PropTypes.array,
-	    value: PropTypes.number,
-	    depth: PropTypes.number,
-	    x: PropTypes.number,
-	    y: PropTypes.number,
-	    dx: PropTypes.number,
-	    dy: PropTypes.number
+	  node: _propTypes2.default.shape({
+	    parent: _propTypes2.default.object,
+	    children: _propTypes2.default.array,
+	    value: _propTypes2.default.number,
+	    depth: _propTypes2.default.number,
+	    x: _propTypes2.default.number,
+	    y: _propTypes2.default.number,
+	    dx: _propTypes2.default.number,
+	    dy: _propTypes2.default.number
 	  }),
-	  nodeStyle: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-	  minLabelWidth: PropTypes.number,
-	  minLabelHeight: PropTypes.number,
+	  nodeStyle: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.object]),
+	  minLabelWidth: _propTypes2.default.number,
+	  minLabelHeight: _propTypes2.default.number,
 	
 	  getLabel: CustomPropTypes.getter,
-	  labelStyle: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-	  NodeLabelComponent: PropTypes.func
+	  labelStyle: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.object]),
+	  NodeLabelComponent: _propTypes2.default.func
 	};
 	TreeMapNode.defaultProps = {
 	  minLabelWidth: 0,
@@ -59242,11 +59245,11 @@
 	}(_react2.default.Component);
 	
 	TreeMapNodeLabel.propTypes = {
-	  node: PropTypes.object,
+	  node: _propTypes2.default.object,
 	  getLabel: CustomPropTypes.getter,
-	  labelStyle: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-	  minLabelWidth: PropTypes.number,
-	  minLabelHeight: PropTypes.number
+	  labelStyle: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.object]),
+	  minLabelWidth: _propTypes2.default.number,
+	  minLabelHeight: _propTypes2.default.number
 	};
 	
 	var TreeMap = function (_React$Component3) {
@@ -59306,34 +59309,34 @@
 	}(_react2.default.Component);
 	
 	TreeMap.propTypes = {
-	  width: PropTypes.number.isRequired,
-	  height: PropTypes.number.isRequired,
+	  width: _propTypes2.default.number.isRequired,
+	  height: _propTypes2.default.number.isRequired,
 	
-	  data: PropTypes.object.isRequired,
+	  data: _propTypes2.default.object.isRequired,
 	  getValue: CustomPropTypes.getter,
 	  getChildren: CustomPropTypes.getter,
 	  getLabel: CustomPropTypes.getter,
 	
 	  // options for d3 treemap layout - see d3 docs
-	  sort: PropTypes.func,
-	  padding: PropTypes.number,
-	  round: PropTypes.bool,
-	  sticky: PropTypes.bool,
-	  mode: PropTypes.string,
-	  ratio: PropTypes.number,
+	  sort: _propTypes2.default.func,
+	  padding: _propTypes2.default.number,
+	  round: _propTypes2.default.bool,
+	  sticky: _propTypes2.default.bool,
+	  mode: _propTypes2.default.string,
+	  ratio: _propTypes2.default.number,
 	
-	  nodeStyle: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-	  labelStyle: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-	  minLabelWidth: PropTypes.number,
-	  minLabelHeight: PropTypes.number,
+	  nodeStyle: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.object]),
+	  labelStyle: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.object]),
+	  minLabelWidth: _propTypes2.default.number,
+	  minLabelHeight: _propTypes2.default.number,
 	
-	  onClickNode: PropTypes.func,
-	  onMouseEnterNode: PropTypes.func,
-	  onMouseLeaveNode: PropTypes.func,
-	  onMouseMoveNode: PropTypes.func,
+	  onClickNode: _propTypes2.default.func,
+	  onMouseEnterNode: _propTypes2.default.func,
+	  onMouseLeaveNode: _propTypes2.default.func,
+	  onMouseMoveNode: _propTypes2.default.func,
 	
-	  NodeComponent: PropTypes.func,
-	  NodeLabelComponent: PropTypes.func
+	  NodeComponent: _propTypes2.default.func,
+	  NodeLabelComponent: _propTypes2.default.func
 	};
 	TreeMap.defaultProps = {
 	  getValue: 'value',
@@ -59402,6 +59405,10 @@
 	
 	var _d2 = _interopRequireDefault(_d);
 	
+	var _propTypes = __webpack_require__(218);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
 	var _resolveObjectProps = __webpack_require__(209);
 	
 	var _resolveObjectProps2 = _interopRequireDefault(_resolveObjectProps);
@@ -59414,7 +59421,7 @@
 	
 	var _Scale = __webpack_require__(207);
 	
-	var _util = __webpack_require__(218);
+	var _util = __webpack_require__(226);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -59515,21 +59522,21 @@
 	}(_react2.default.Component);
 	
 	XYPlot.propTypes = {
-	  width: _react2.default.PropTypes.number,
-	  height: _react2.default.PropTypes.number,
-	  scale: _react2.default.PropTypes.object,
-	  scaleType: _react2.default.PropTypes.object,
-	  domain: _react2.default.PropTypes.object,
-	  margin: _react2.default.PropTypes.object,
+	  width: _propTypes2.default.number,
+	  height: _propTypes2.default.number,
+	  scale: _propTypes2.default.object,
+	  scaleType: _propTypes2.default.object,
+	  domain: _propTypes2.default.object,
+	  margin: _propTypes2.default.object,
 	  // todo spacing & padding...
-	  nice: _react2.default.PropTypes.object,
-	  invertScale: _react2.default.PropTypes.object,
+	  nice: _propTypes2.default.object,
+	  invertScale: _propTypes2.default.object,
 	
-	  onMouseMove: _react2.default.PropTypes.func,
-	  onMouseEnter: _react2.default.PropTypes.func,
-	  onMouseLeave: _react2.default.PropTypes.func,
-	  onMouseDown: _react2.default.PropTypes.func,
-	  onMouseUp: _react2.default.PropTypes.func
+	  onMouseMove: _propTypes2.default.func,
+	  onMouseEnter: _propTypes2.default.func,
+	  onMouseLeave: _propTypes2.default.func,
+	  onMouseDown: _propTypes2.default.func,
+	  onMouseUp: _propTypes2.default.func
 	};
 	XYPlot.defaultProps = {
 	  width: 400,
@@ -59582,6 +59589,10 @@
 	var _shallowEqual = __webpack_require__(231);
 	
 	var _shallowEqual2 = _interopRequireDefault(_shallowEqual);
+	
+	var _propTypes = __webpack_require__(218);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
 	var _Data = __webpack_require__(205);
 	
@@ -59687,12 +59698,12 @@
 	
 	LineChart.propTypes = {
 	  // the array of data objects
-	  data: _react2.default.PropTypes.array.isRequired,
+	  data: _propTypes2.default.array.isRequired,
 	  // accessor for X & Y coordinates
-	  getX: _react2.default.PropTypes.any,
-	  getY: _react2.default.PropTypes.any,
+	  getX: _propTypes2.default.any,
+	  getY: _propTypes2.default.any,
 	  // props from XYPlot
-	  scale: _react2.default.PropTypes.object
+	  scale: _propTypes2.default.object
 	};
 	exports.default = LineChart;
 	
@@ -59848,15 +59859,19 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _propTypes = __webpack_require__(218);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
 	var _lodash = __webpack_require__(3);
 	
 	var _lodash2 = _interopRequireDefault(_lodash);
 	
 	var _Data = __webpack_require__(205);
 	
-	var _util = __webpack_require__(218);
+	var _util = __webpack_require__(226);
 	
-	var _CustomPropTypes = __webpack_require__(219);
+	var _CustomPropTypes = __webpack_require__(227);
 	
 	var CustomPropTypes = _interopRequireWildcard(_CustomPropTypes);
 	
@@ -59869,8 +59884,6 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var PropTypes = _react2.default.PropTypes;
 	
 	var ScatterPlot = function (_React$Component) {
 	  _inherits(ScatterPlot, _React$Component);
@@ -59961,26 +59974,26 @@
 	
 	ScatterPlot.propTypes = {
 	  // the array of data objects
-	  data: PropTypes.array.isRequired,
+	  data: _propTypes2.default.array.isRequired,
 	  // accessors for X & Y coordinates
 	  getX: CustomPropTypes.getter,
 	  getY: CustomPropTypes.getter,
 	  // allow user to pass an accessor for setting the class of a point
 	  getClass: CustomPropTypes.getter,
 	
-	  scaleType: PropTypes.object,
-	  scale: PropTypes.object,
+	  scaleType: _propTypes2.default.object,
+	  scale: _propTypes2.default.object,
 	
 	  // used with the default point symbol (circle), defines the circle radius
-	  pointRadius: PropTypes.number,
+	  pointRadius: _propTypes2.default.number,
 	  // text or SVG node to use as custom point symbol, or function which returns text/SVG
-	  pointSymbol: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
+	  pointSymbol: _propTypes2.default.oneOfType([_propTypes2.default.node, _propTypes2.default.func]),
 	  // manual x and y offset applied to the point to center it, for custom point symbols which can't be auto-centered
-	  pointOffset: PropTypes.arrayOf(PropTypes.number),
+	  pointOffset: _propTypes2.default.arrayOf(_propTypes2.default.number),
 	
-	  onMouseEnterPoint: PropTypes.func,
-	  onMouseMovePoint: PropTypes.func,
-	  onMouseLeavePoint: PropTypes.func
+	  onMouseEnterPoint: _propTypes2.default.func,
+	  onMouseMovePoint: _propTypes2.default.func,
+	  onMouseLeavePoint: _propTypes2.default.func
 	};
 	ScatterPlot.defaultProps = {
 	  pointRadius: 3,
@@ -60015,11 +60028,15 @@
 	
 	var _invariant2 = _interopRequireDefault(_invariant);
 	
+	var _propTypes = __webpack_require__(218);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
 	var _RangeBarChart = __webpack_require__(235);
 	
 	var _RangeBarChart2 = _interopRequireDefault(_RangeBarChart);
 	
-	var _CustomPropTypes = __webpack_require__(219);
+	var _CustomPropTypes = __webpack_require__(227);
 	
 	var CustomPropTypes = _interopRequireWildcard(_CustomPropTypes);
 	
@@ -60092,15 +60109,15 @@
 	}(_react2.default.Component);
 	
 	BarChart.propTypes = {
-	  scale: CustomPropTypes.xyObjectOf(_react2.default.PropTypes.func.isRequired),
-	  data: _react2.default.PropTypes.array,
+	  scale: CustomPropTypes.xyObjectOf(_propTypes2.default.func.isRequired),
+	  data: _propTypes2.default.array,
 	  getX: CustomPropTypes.getter,
 	  getY: CustomPropTypes.getter,
-	  horizontal: _react2.default.PropTypes.bool,
+	  horizontal: _propTypes2.default.bool,
 	
-	  barThickness: _react2.default.PropTypes.number,
-	  barClassName: _react2.default.PropTypes.string,
-	  barStyle: _react2.default.PropTypes.object
+	  barThickness: _propTypes2.default.number,
+	  barClassName: _propTypes2.default.string,
+	  barStyle: _propTypes2.default.object
 	};
 	BarChart.defaultProps = {
 	  data: [],
@@ -60133,7 +60150,11 @@
 	
 	var _invariant2 = _interopRequireDefault(_invariant);
 	
-	var _CustomPropTypes = __webpack_require__(219);
+	var _propTypes = __webpack_require__(218);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _CustomPropTypes = __webpack_require__(227);
 	
 	var CustomPropTypes = _interopRequireWildcard(_CustomPropTypes);
 	
@@ -60233,18 +60254,18 @@
 	}(_react2.default.Component);
 	
 	RangeBarChart.propTypes = {
-	  scale: CustomPropTypes.xyObjectOf(_react2.default.PropTypes.func.isRequired),
-	  data: _react2.default.PropTypes.array,
-	  horizontal: _react2.default.PropTypes.bool,
+	  scale: CustomPropTypes.xyObjectOf(_propTypes2.default.func.isRequired),
+	  data: _propTypes2.default.array,
+	  horizontal: _propTypes2.default.bool,
 	
 	  getX: CustomPropTypes.getter,
 	  getXEnd: CustomPropTypes.getter,
 	  getY: CustomPropTypes.getter,
 	  getYEnd: CustomPropTypes.getter,
 	
-	  barThickness: _react2.default.PropTypes.number,
-	  barClassName: _react2.default.PropTypes.string,
-	  barStyle: _react2.default.PropTypes.object
+	  barThickness: _propTypes2.default.number,
+	  barClassName: _propTypes2.default.string,
+	  barStyle: _propTypes2.default.object
 	};
 	RangeBarChart.defaultProps = {
 	  data: [],
@@ -60279,9 +60300,13 @@
 	
 	var _isUndefined2 = _interopRequireDefault(_isUndefined);
 	
-	var _util = __webpack_require__(218);
+	var _util = __webpack_require__(226);
 	
 	var _Scale = __webpack_require__(207);
+	
+	var _propTypes = __webpack_require__(218);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -60360,14 +60385,14 @@
 	}(_react2.default.Component);
 	
 	Bar.propTypes = {
-	  scale: _react2.default.PropTypes.shape({ x: _react2.default.PropTypes.func.isRequired, y: _react2.default.PropTypes.func.isRequired }),
-	  xValue: _react2.default.PropTypes.any,
-	  yValue: _react2.default.PropTypes.any,
-	  xEndValue: _react2.default.PropTypes.any,
-	  yEndValue: _react2.default.PropTypes.any,
-	  thickness: _react2.default.PropTypes.number,
-	  className: _react2.default.PropTypes.string,
-	  style: _react2.default.PropTypes.object
+	  scale: _propTypes2.default.shape({ x: _propTypes2.default.func.isRequired, y: _propTypes2.default.func.isRequired }),
+	  xValue: _propTypes2.default.any,
+	  yValue: _propTypes2.default.any,
+	  xEndValue: _propTypes2.default.any,
+	  yEndValue: _propTypes2.default.any,
+	  thickness: _propTypes2.default.number,
+	  className: _propTypes2.default.string,
+	  style: _propTypes2.default.object
 	};
 	Bar.defaultProps = {
 	  xValue: 0,
@@ -60432,7 +60457,11 @@
 	
 	var _invariant2 = _interopRequireDefault(_invariant);
 	
-	var _CustomPropTypes = __webpack_require__(219);
+	var _propTypes = __webpack_require__(218);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _CustomPropTypes = __webpack_require__(227);
 	
 	var CustomPropTypes = _interopRequireWildcard(_CustomPropTypes);
 	
@@ -60528,17 +60557,17 @@
 	}(_react2.default.Component);
 	
 	AreaBarChart.propTypes = {
-	  scale: CustomPropTypes.xyObjectOf(_react2.default.PropTypes.func.isRequired),
-	  data: _react2.default.PropTypes.array,
-	  horizontal: _react2.default.PropTypes.bool,
+	  scale: CustomPropTypes.xyObjectOf(_propTypes2.default.func.isRequired),
+	  data: _propTypes2.default.array,
+	  horizontal: _propTypes2.default.bool,
 	
 	  getX: CustomPropTypes.getter,
 	  getXEnd: CustomPropTypes.getter,
 	  getY: CustomPropTypes.getter,
 	  getYEnd: CustomPropTypes.getter,
 	
-	  barClassName: _react2.default.PropTypes.string,
-	  barStyle: _react2.default.PropTypes.object
+	  barClassName: _propTypes2.default.string,
+	  barStyle: _propTypes2.default.object
 	};
 	AreaBarChart.defaultProps = {
 	  data: [],
@@ -60572,11 +60601,15 @@
 	
 	var _isUndefined2 = _interopRequireDefault(_isUndefined);
 	
-	var _CustomPropTypes = __webpack_require__(219);
+	var _propTypes = __webpack_require__(218);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _CustomPropTypes = __webpack_require__(227);
 	
 	var CustomPropTypes = _interopRequireWildcard(_CustomPropTypes);
 	
-	var _util = __webpack_require__(218);
+	var _util = __webpack_require__(226);
 	
 	var _Scale = __webpack_require__(207);
 	
@@ -60640,14 +60673,14 @@
 	}(_react2.default.Component);
 	
 	RangeRect.propTypes = {
-	  scale: _react2.default.PropTypes.shape({ x: _react2.default.PropTypes.func.isRequired, y: _react2.default.PropTypes.func.isRequired }),
-	  datum: _react2.default.PropTypes.any,
+	  scale: _propTypes2.default.shape({ x: _propTypes2.default.func.isRequired, y: _propTypes2.default.func.isRequired }),
+	  datum: _propTypes2.default.any,
 	  getX: CustomPropTypes.getter,
 	  getXEnd: CustomPropTypes.getter,
 	  getY: CustomPropTypes.getter,
 	  getYEnd: CustomPropTypes.getter,
-	  className: _react2.default.PropTypes.string,
-	  style: _react2.default.PropTypes.object
+	  className: _propTypes2.default.string,
+	  style: _propTypes2.default.object
 	};
 	RangeRect.defaultProps = {
 	  className: '',
@@ -60675,6 +60708,10 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _propTypes = __webpack_require__(218);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
 	var _lodash = __webpack_require__(3);
 	
 	var _lodash2 = _interopRequireDefault(_lodash);
@@ -60683,9 +60720,9 @@
 	
 	var _d3 = _interopRequireDefault(_d2);
 	
-	var _util = __webpack_require__(218);
+	var _util = __webpack_require__(226);
 	
-	var _CustomPropTypes = __webpack_require__(219);
+	var _CustomPropTypes = __webpack_require__(227);
 	
 	var CustomPropTypes = _interopRequireWildcard(_CustomPropTypes);
 	
@@ -60704,9 +60741,6 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var PropTypes = _react2.default.PropTypes;
-	
 	
 	// MarkerLine is similar to a bar chart,
 	// except that it just draws a line at the data value, rather than a full bar
@@ -60880,23 +60914,23 @@
 	
 	MarkerLineChart.propTypes = {
 	  // the array of data objects
-	  data: PropTypes.array.isRequired,
+	  data: _propTypes2.default.array.isRequired,
 	  // accessor for X & Y coordinates
 	  getX: CustomPropTypes.getter,
 	  getY: CustomPropTypes.getter,
 	  getXEnd: CustomPropTypes.getter,
 	  getYEnd: CustomPropTypes.getter,
 	
-	  orientation: PropTypes.oneOf(['vertical', 'horizontal']),
-	  lineLength: PropTypes.number,
+	  orientation: _propTypes2.default.oneOf(['vertical', 'horizontal']),
+	  lineLength: _propTypes2.default.number,
 	
 	  // x & y scale types
-	  scaleType: PropTypes.object,
-	  scale: PropTypes.object,
+	  scaleType: _propTypes2.default.object,
+	  scale: _propTypes2.default.object,
 	
-	  onMouseEnterLine: PropTypes.func,
-	  onMouseMoveLine: PropTypes.func,
-	  onMouseLeaveLine: PropTypes.func
+	  onMouseEnterLine: _propTypes2.default.func,
+	  onMouseMoveLine: _propTypes2.default.func,
+	  onMouseLeaveLine: _propTypes2.default.func
 	};
 	MarkerLineChart.defaultProps = {
 	  orientation: 'vertical',
@@ -60932,7 +60966,11 @@
 	
 	var _d3 = _interopRequireDefault(_d2);
 	
-	var _util = __webpack_require__(218);
+	var _propTypes = __webpack_require__(218);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _util = __webpack_require__(226);
 	
 	var _Data = __webpack_require__(205);
 	
@@ -61087,7 +61125,7 @@
 	}(_react2.default.Component);
 	
 	AreaHeatmap.propTypes = {
-	  unitsPerPixel: _react2.default.PropTypes.number
+	  unitsPerPixel: _propTypes2.default.number
 	};
 	exports.default = AreaHeatmap;
 
@@ -61116,6 +61154,10 @@
 	var _d = __webpack_require__(162);
 	
 	var _d2 = _interopRequireDefault(_d);
+	
+	var _propTypes = __webpack_require__(218);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
 	var _AreaBarChart = __webpack_require__(238);
 	
@@ -61191,11 +61233,11 @@
 	
 	Histogram.propTypes = {
 	  // the array of data objects
-	  data: _react2.default.PropTypes.array.isRequired,
+	  data: _propTypes2.default.array.isRequired,
 	  // accessor for X & Y coordinates
-	  getValue: _react2.default.PropTypes.object,
-	  axisType: _react2.default.PropTypes.object,
-	  scale: _react2.default.PropTypes.object
+	  getValue: _propTypes2.default.object,
+	  axisType: _propTypes2.default.object,
+	  scale: _propTypes2.default.object
 	};
 	exports.default = Histogram;
 
@@ -61225,7 +61267,11 @@
 	
 	var _d2 = _interopRequireDefault(_d);
 	
-	var _CustomPropTypes = __webpack_require__(219);
+	var _propTypes = __webpack_require__(218);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _CustomPropTypes = __webpack_require__(227);
 	
 	var CustomPropTypes = _interopRequireWildcard(_CustomPropTypes);
 	
@@ -61322,25 +61368,25 @@
 	
 	KernelDensityEstimation.propTypes = {
 	  // the array of data objects
-	  data: _react2.default.PropTypes.array.isRequired,
+	  data: _propTypes2.default.array.isRequired,
 	
 	  // kernel bandwidth for kernel density estimator
 	  // https://en.wikipedia.org/wiki/Kernel_density_estimation#Bandwidth_selection
 	  // high bandwidth => oversmoothing & underfitting; low bandwidth => undersmoothing & overfitting
-	  bandwidth: _react2.default.PropTypes.number,
+	  bandwidth: _propTypes2.default.number,
 	  // number of samples to take from the KDE
 	  // ie. the resolution/smoothness of the KDE line - more samples => higher resolution, smooth line
-	  sampleCount: _react2.default.PropTypes.number,
+	  sampleCount: _propTypes2.default.number,
 	
 	  // common props from XYPlot
 	  // accessor for data values
 	  getX: CustomPropTypes.getter,
 	  getY: CustomPropTypes.getter,
-	  name: _react2.default.PropTypes.string,
-	  scale: _react2.default.PropTypes.object,
-	  axisType: _react2.default.PropTypes.object,
-	  scaleWidth: _react2.default.PropTypes.number,
-	  scaleHeight: _react2.default.PropTypes.number
+	  name: _propTypes2.default.string,
+	  scale: _propTypes2.default.object,
+	  axisType: _propTypes2.default.object,
+	  scaleWidth: _propTypes2.default.number,
+	  scaleHeight: _propTypes2.default.number
 	};
 	KernelDensityEstimation.defaultProps = {
 	  bandwidth: 0.5,
@@ -61382,6 +61428,10 @@
 	var _react = __webpack_require__(5);
 	
 	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(218);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -61426,8 +61476,8 @@
 	}(_react2.default.Component);
 	
 	XLine.propTypes = {
-	  scale: _react2.default.PropTypes.shape({ x: _react2.default.PropTypes.func.isRequired }),
-	  value: _react2.default.PropTypes.any.isRequired
+	  scale: _propTypes2.default.shape({ x: _propTypes2.default.func.isRequired }),
+	  value: _propTypes2.default.any.isRequired
 	};
 	XLine.defaultProps = {
 	  style: {}
@@ -61449,6 +61499,10 @@
 	var _react = __webpack_require__(5);
 	
 	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(218);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -61493,8 +61547,8 @@
 	}(_react2.default.Component);
 	
 	YLine.propTypes = {
-	  scale: _react2.default.PropTypes.shape({ y: _react2.default.PropTypes.func.isRequired }),
-	  value: _react2.default.PropTypes.any.isRequired
+	  scale: _propTypes2.default.shape({ y: _propTypes2.default.func.isRequired }),
+	  value: _propTypes2.default.any.isRequired
 	};
 	YLine.defaultProps = {
 	  style: {}
@@ -61524,6 +61578,10 @@
 	var _shallowEqual = __webpack_require__(231);
 	
 	var _shallowEqual2 = _interopRequireDefault(_shallowEqual);
+	
+	var _propTypes = __webpack_require__(218);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
 	var _Scale = __webpack_require__(207);
 	
@@ -61648,40 +61706,40 @@
 	}(_react2.default.Component);
 	
 	XAxis.propTypes = {
-	  scale: _react2.default.PropTypes.shape({ x: _react2.default.PropTypes.func.isRequired }),
+	  scale: _propTypes2.default.shape({ x: _propTypes2.default.func.isRequired }),
 	
-	  width: _react2.default.PropTypes.number,
-	  height: _react2.default.PropTypes.number,
-	  position: _react2.default.PropTypes.string,
-	  placement: _react2.default.PropTypes.string,
-	  nice: _react2.default.PropTypes.bool,
-	  ticks: _react2.default.PropTypes.array,
-	  tickCount: _react2.default.PropTypes.number,
+	  width: _propTypes2.default.number,
+	  height: _propTypes2.default.number,
+	  position: _propTypes2.default.string,
+	  placement: _propTypes2.default.string,
+	  nice: _propTypes2.default.bool,
+	  ticks: _propTypes2.default.array,
+	  tickCount: _propTypes2.default.number,
 	
-	  showTitle: _react2.default.PropTypes.bool,
-	  showLabels: _react2.default.PropTypes.bool,
-	  showTicks: _react2.default.PropTypes.bool,
-	  showGrid: _react2.default.PropTypes.bool,
+	  showTitle: _propTypes2.default.bool,
+	  showLabels: _propTypes2.default.bool,
+	  showTicks: _propTypes2.default.bool,
+	  showGrid: _propTypes2.default.bool,
 	
-	  title: _react2.default.PropTypes.string,
-	  titleDistance: _react2.default.PropTypes.number,
-	  titleAlign: _react2.default.PropTypes.string,
-	  titleRotate: _react2.default.PropTypes.bool,
-	  titleStyle: _react2.default.PropTypes.object,
+	  title: _propTypes2.default.string,
+	  titleDistance: _propTypes2.default.number,
+	  titleAlign: _propTypes2.default.string,
+	  titleRotate: _propTypes2.default.bool,
+	  titleStyle: _propTypes2.default.object,
 	
-	  labelDistance: _react2.default.PropTypes.number,
-	  labelClassName: _react2.default.PropTypes.string,
-	  labelStyle: _react2.default.PropTypes.object,
-	  labelFormat: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.object, _react2.default.PropTypes.func]),
-	  labelFormats: _react2.default.PropTypes.array,
-	  labels: _react2.default.PropTypes.array,
+	  labelDistance: _propTypes2.default.number,
+	  labelClassName: _propTypes2.default.string,
+	  labelStyle: _propTypes2.default.object,
+	  labelFormat: _propTypes2.default.oneOfType([_propTypes2.default.object, _propTypes2.default.func]),
+	  labelFormats: _propTypes2.default.array,
+	  labels: _propTypes2.default.array,
 	
-	  tickLength: _react2.default.PropTypes.number,
-	  tickClassName: _react2.default.PropTypes.string,
-	  tickStyle: _react2.default.PropTypes.object,
+	  tickLength: _propTypes2.default.number,
+	  tickClassName: _propTypes2.default.string,
+	  tickStyle: _propTypes2.default.object,
 	
-	  gridLineClassName: _react2.default.PropTypes.string,
-	  gridLineStyle: _react2.default.PropTypes.object
+	  gridLineClassName: _propTypes2.default.string,
+	  gridLineStyle: _propTypes2.default.object
 	};
 	XAxis.defaultProps = {
 	  width: 400,
@@ -61778,6 +61836,10 @@
 	
 	var _lodash2 = _interopRequireDefault(_lodash);
 	
+	var _propTypes = __webpack_require__(218);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
 	var _Scale = __webpack_require__(207);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -61859,7 +61921,7 @@
 	}(_react2.default.Component);
 	
 	XTicks.propTypes = {
-	  scale: _react2.default.PropTypes.shape({ x: _react2.default.PropTypes.func.isRequired })
+	  scale: _propTypes2.default.shape({ x: _propTypes2.default.func.isRequired })
 	};
 	XTicks.defaultProps = {
 	  position: 'bottom',
@@ -61888,6 +61950,10 @@
 	var _lodash = __webpack_require__(3);
 	
 	var _lodash2 = _interopRequireDefault(_lodash);
+	
+	var _propTypes = __webpack_require__(218);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
 	var _Scale = __webpack_require__(207);
 	
@@ -61955,14 +62021,14 @@
 	}(_react2.default.Component);
 	
 	XGrid.propTypes = {
-	  scale: _react2.default.PropTypes.shape({ x: _react2.default.PropTypes.func.isRequired }),
-	  width: _react2.default.PropTypes.number,
-	  height: _react2.default.PropTypes.number,
-	  nice: _react2.default.PropTypes.bool,
-	  ticks: _react2.default.PropTypes.array,
-	  tickCount: _react2.default.PropTypes.number,
-	  lineClassName: _react2.default.PropTypes.string,
-	  lineStyle: _react2.default.PropTypes.object
+	  scale: _propTypes2.default.shape({ x: _propTypes2.default.func.isRequired }),
+	  width: _propTypes2.default.number,
+	  height: _propTypes2.default.number,
+	  nice: _propTypes2.default.bool,
+	  ticks: _propTypes2.default.array,
+	  tickCount: _propTypes2.default.number,
+	  lineClassName: _propTypes2.default.string,
+	  lineStyle: _propTypes2.default.object
 	};
 	XGrid.defaultProps = {
 	  nice: true,
@@ -61991,6 +62057,10 @@
 	var _lodash = __webpack_require__(3);
 	
 	var _lodash2 = _interopRequireDefault(_lodash);
+	
+	var _propTypes = __webpack_require__(218);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
 	var _MeasuredValueLabel = __webpack_require__(251);
 	
@@ -62201,7 +62271,7 @@
 	}(_react2.default.Component);
 	
 	XAxisValueLabels.propTypes = {
-	  scale: _react2.default.PropTypes.object
+	  scale: _propTypes2.default.object
 	};
 	XAxisValueLabels.defaultProps = {
 	  height: 250,
@@ -62279,6 +62349,10 @@
 	
 	var _measureText2 = _interopRequireDefault(_measureText);
 	
+	var _propTypes = __webpack_require__(218);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -62334,7 +62408,7 @@
 	}(_react2.default.Component);
 	
 	MeasuredValueLabel.propTypes = {
-	  value: _react2.default.PropTypes.any.isRequired
+	  value: _propTypes2.default.any.isRequired
 	};
 	MeasuredValueLabel.defaultProps = {
 	  format: _lodash2.default.identity,
@@ -79941,6 +80015,10 @@
 	
 	var _measureText2 = _interopRequireDefault(_measureText);
 	
+	var _propTypes = __webpack_require__(218);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -80019,14 +80097,14 @@
 	}(_react2.default.Component);
 	
 	XAxisTitle.propTypes = {
-	  height: _react2.default.PropTypes.number,
-	  width: _react2.default.PropTypes.number,
-	  distance: _react2.default.PropTypes.number,
-	  position: _react2.default.PropTypes.oneOf(['top', 'bottom']),
-	  placement: _react2.default.PropTypes.oneOf(['above', 'below']),
-	  alignment: _react2.default.PropTypes.oneOf(['left', 'center', 'right']),
-	  rotate: _react2.default.PropTypes.bool,
-	  style: _react2.default.PropTypes.object
+	  height: _propTypes2.default.number,
+	  width: _propTypes2.default.number,
+	  distance: _propTypes2.default.number,
+	  position: _propTypes2.default.oneOf(['top', 'bottom']),
+	  placement: _propTypes2.default.oneOf(['above', 'below']),
+	  alignment: _propTypes2.default.oneOf(['left', 'center', 'right']),
+	  rotate: _propTypes2.default.bool,
+	  style: _propTypes2.default.object
 	};
 	XAxisTitle.defaultProps = {
 	  height: 250,
@@ -80064,6 +80142,10 @@
 	var _lodash = __webpack_require__(3);
 	
 	var _lodash2 = _interopRequireDefault(_lodash);
+	
+	var _propTypes = __webpack_require__(218);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
 	var _Scale = __webpack_require__(207);
 	
@@ -80188,40 +80270,40 @@
 	}(_react2.default.Component);
 	
 	YAxis.propTypes = {
-	  scale: _react2.default.PropTypes.shape({ y: _react2.default.PropTypes.func.isRequired }),
+	  scale: _propTypes2.default.shape({ y: _propTypes2.default.func.isRequired }),
 	
-	  width: _react2.default.PropTypes.number,
-	  height: _react2.default.PropTypes.number,
-	  position: _react2.default.PropTypes.string,
-	  placement: _react2.default.PropTypes.string,
-	  nice: _react2.default.PropTypes.bool,
-	  ticks: _react2.default.PropTypes.array,
-	  tickCount: _react2.default.PropTypes.number,
+	  width: _propTypes2.default.number,
+	  height: _propTypes2.default.number,
+	  position: _propTypes2.default.string,
+	  placement: _propTypes2.default.string,
+	  nice: _propTypes2.default.bool,
+	  ticks: _propTypes2.default.array,
+	  tickCount: _propTypes2.default.number,
 	
-	  showTitle: _react2.default.PropTypes.bool,
-	  showLabels: _react2.default.PropTypes.bool,
-	  showTicks: _react2.default.PropTypes.bool,
-	  showGrid: _react2.default.PropTypes.bool,
+	  showTitle: _propTypes2.default.bool,
+	  showLabels: _propTypes2.default.bool,
+	  showTicks: _propTypes2.default.bool,
+	  showGrid: _propTypes2.default.bool,
 	
-	  title: _react2.default.PropTypes.string,
-	  titleDistance: _react2.default.PropTypes.number,
-	  titleAlign: _react2.default.PropTypes.string,
-	  titleRotate: _react2.default.PropTypes.bool,
-	  titleStyle: _react2.default.PropTypes.object,
+	  title: _propTypes2.default.string,
+	  titleDistance: _propTypes2.default.number,
+	  titleAlign: _propTypes2.default.string,
+	  titleRotate: _propTypes2.default.bool,
+	  titleStyle: _propTypes2.default.object,
 	
-	  labelDistance: _react2.default.PropTypes.number,
-	  labelClassName: _react2.default.PropTypes.string,
-	  labelStyle: _react2.default.PropTypes.object,
-	  labelFormat: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.func]),
-	  labelFormats: _react2.default.PropTypes.array,
-	  labels: _react2.default.PropTypes.array,
+	  labelDistance: _propTypes2.default.number,
+	  labelClassName: _propTypes2.default.string,
+	  labelStyle: _propTypes2.default.object,
+	  labelFormat: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.func]),
+	  labelFormats: _propTypes2.default.array,
+	  labels: _propTypes2.default.array,
 	
-	  tickLength: _react2.default.PropTypes.number,
-	  tickClassName: _react2.default.PropTypes.string,
-	  tickStyle: _react2.default.PropTypes.object,
+	  tickLength: _propTypes2.default.number,
+	  tickClassName: _propTypes2.default.string,
+	  tickStyle: _propTypes2.default.object,
 	
-	  gridLineClassName: _react2.default.PropTypes.string,
-	  gridLineStyle: _react2.default.PropTypes.object
+	  gridLineClassName: _propTypes2.default.string,
+	  gridLineStyle: _propTypes2.default.object
 	};
 	YAxis.defaultProps = {
 	  width: 400,
@@ -80257,6 +80339,10 @@
 	var _lodash = __webpack_require__(3);
 	
 	var _lodash2 = _interopRequireDefault(_lodash);
+	
+	var _propTypes = __webpack_require__(218);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
 	var _Scale = __webpack_require__(207);
 	
@@ -80339,7 +80425,7 @@
 	}(_react2.default.Component);
 	
 	YTicks.propTypes = {
-	  scale: _react2.default.PropTypes.shape({ y: _react2.default.PropTypes.func.isRequired })
+	  scale: _propTypes2.default.shape({ y: _propTypes2.default.func.isRequired })
 	};
 	YTicks.defaultProps = {
 	  position: 'left',
@@ -80368,6 +80454,10 @@
 	var _lodash = __webpack_require__(3);
 	
 	var _lodash2 = _interopRequireDefault(_lodash);
+	
+	var _propTypes = __webpack_require__(218);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
 	var _YLine = __webpack_require__(245);
 	
@@ -80435,14 +80525,14 @@
 	}(_react2.default.Component);
 	
 	YGrid.propTypes = {
-	  scale: _react2.default.PropTypes.shape({ y: _react2.default.PropTypes.func.isRequired }),
-	  width: _react2.default.PropTypes.number,
-	  height: _react2.default.PropTypes.number,
-	  nice: _react2.default.PropTypes.bool,
-	  ticks: _react2.default.PropTypes.array,
-	  tickCount: _react2.default.PropTypes.number,
-	  lineClassName: _react2.default.PropTypes.string,
-	  lineStyle: _react2.default.PropTypes.object
+	  scale: _propTypes2.default.shape({ y: _propTypes2.default.func.isRequired }),
+	  width: _propTypes2.default.number,
+	  height: _propTypes2.default.number,
+	  nice: _propTypes2.default.bool,
+	  ticks: _propTypes2.default.array,
+	  tickCount: _propTypes2.default.number,
+	  lineClassName: _propTypes2.default.string,
+	  lineStyle: _propTypes2.default.object
 	};
 	YGrid.defaultProps = {
 	  nice: true,
@@ -80471,6 +80561,10 @@
 	var _lodash = __webpack_require__(3);
 	
 	var _lodash2 = _interopRequireDefault(_lodash);
+	
+	var _propTypes = __webpack_require__(218);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
 	var _MeasuredValueLabel = __webpack_require__(251);
 	
@@ -80669,7 +80763,7 @@
 	}(_react2.default.Component);
 	
 	YAxisValueLabels.propTypes = {
-	  scale: _react2.default.PropTypes.object
+	  scale: _propTypes2.default.object
 	  // placement: undefined,
 	  // format: undefined,
 	  // formats: undefined,
@@ -80752,6 +80846,10 @@
 	
 	var _measureText2 = _interopRequireDefault(_measureText);
 	
+	var _propTypes = __webpack_require__(218);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -80828,14 +80926,14 @@
 	}(_react2.default.Component);
 	
 	YAxisTitle.propTypes = {
-	  height: _react2.default.PropTypes.number,
-	  width: _react2.default.PropTypes.number,
-	  distance: _react2.default.PropTypes.number,
-	  position: _react2.default.PropTypes.oneOf(['left', 'right']),
-	  alignment: _react2.default.PropTypes.oneOf(['top', 'middle', 'bottom']),
-	  placement: _react2.default.PropTypes.oneOf(['before', 'after']),
-	  rotate: _react2.default.PropTypes.bool,
-	  style: _react2.default.PropTypes.object
+	  height: _propTypes2.default.number,
+	  width: _propTypes2.default.number,
+	  distance: _propTypes2.default.number,
+	  position: _propTypes2.default.oneOf(['left', 'right']),
+	  alignment: _propTypes2.default.oneOf(['top', 'middle', 'bottom']),
+	  placement: _propTypes2.default.oneOf(['before', 'after']),
+	  rotate: _propTypes2.default.bool,
+	  style: _propTypes2.default.object
 	};
 	YAxisTitle.defaultProps = {
 	  height: 250,
