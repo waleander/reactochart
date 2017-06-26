@@ -49809,6 +49809,8 @@
 	
 	var _d2 = _interopRequireDefault(_d);
 	
+	var _Data = __webpack_require__(176);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function scaleTypeFromDataType(dataType) {
@@ -49883,7 +49885,7 @@
 	  }
 	
 	  if (_lodash2.default.isArray(ticks)) {
-	    return combineDomains([scale.domain(), domainFromData(ticks, _lodash2.default.identity, dataTypeFromScaleType(scaleType))]);
+	    return (0, _Data.combineDomains)([scale.domain(), (0, _Data.domainFromData)(ticks, _lodash2.default.identity, dataTypeFromScaleType(scaleType))]);
 	  } else if (nice && scaleType !== 'ordinal') return scale.domain();
 	  // return undefined by default, if we have no options pertaining to ticks
 	}
@@ -51052,7 +51054,7 @@
 	}(_react2.default.Component);
 	
 	MeasuredValueLabel.propTypes = {
-	  value: _propTypes2.default.any.isRequired
+	  value: _propTypes2.default.any
 	};
 	MeasuredValueLabel.defaultProps = {
 	  format: _lodash2.default.identity,
